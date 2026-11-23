@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Al sol no se le da papaya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@500;600&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: portada tipo afiche (título, Solancho, firma) y un menú desplegable que abre cuatro vistas: información, mitos, datos y checklist. Paleta y tipografías del informe de campaña. */
+:root{
+  --orange:#FF761B; --yellow:#FFB21F; --cream:#FFF2C4; --brown:#642606; --teal:#089A9A;
+  --display:'Chewy','Baloo 2','Arial Rounded MT Bold',ui-rounded,system-ui,sans-serif;
+  --sig:'Fredoka','Baloo 2',ui-rounded,system-ui,sans-serif;
+  --body:'Nunito Sans','Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+  --bg:#FFF8E1; --card:#FFFDF4; --soft:#FFF2C4; --ink:#642606; --muted:#855431; --line:#EBCF8B;
+  --outline:#642606; --accent-ink:#B84600; --head-bg:#FFF2C4; --on-teal:#FFFFFF;
+  --good:#1B7F50; --good-bg:#DDF3E6; --bad:#B3261E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#26110A; --card:#35190C; --soft:#43210F; --ink:#FFF2C4; --muted:#DDB88F; --line:#5E3419;
+    --outline:#A8622F; --accent-ink:#FFB21F; --head-bg:#1B0C05; --good:#6FD7A0; --good-bg:#1D3A2B; --bad:#FF9A8F;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#26110A; --card:#35190C; --soft:#43210F; --ink:#FFF2C4; --muted:#DDB88F; --line:#5E3419;
+  --outline:#A8622F; --accent-ink:#FFB21F; --head-bg:#1B0C05; --good:#6FD7A0; --good-bg:#1D3A2B; --bad:#FF9A8F;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;min-height:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--head-bg);z-index:60}
+[hidden]{display:none!important}
+img{max-width:100%;display:block}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+button{font:inherit;color:inherit}
+a{color:inherit}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+
+/* Cabecera y menú */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--head-bg);border-bottom:3px solid var(--outline)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:9px;position:relative}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
+.brand img{width:42px;height:42px;object-fit:contain;flex:none}
+.brand span{font-family:var(--display);font-size:clamp(17px,4.6vw,24px);line-height:1;letter-spacing:.01em;color:var(--ink);text-wrap:balance}
+.menu-btn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:9px;background:var(--brown);color:var(--cream);font-family:var(--display);font-size:20px;line-height:1;padding:10px 16px 9px;border-radius:99px;flex:none;border:3px solid var(--brown)}
+.menu-btn[aria-expanded="true"]{background:var(--orange);border-color:var(--brown);color:var(--brown)}
+.menu-btn svg{width:22px;height:22px}
+.menu-btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+:root[data-theme="dark"] .menu-btn,:root:not([data-theme="light"]) .menu-btn{border-color:var(--cream)}
+.menu{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:calc(100% + 10px);width:min(420px,calc(100vw - 32px));background:var(--card);border:3px solid var(--outline);border-radius:20px;box-shadow:6px 6px 0 var(--outline);padding:10px;display:grid;gap:4px}
+.menu a{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:center;text-decoration:none;padding:10px;border-radius:14px}
+.menu a:hover{background:var(--soft)}
+.menu a[aria-current="page"]{background:var(--soft);box-shadow:inset 0 0 0 2px var(--outline)}
+.menu .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--yellow);color:var(--brown);border:2px solid var(--brown)}
+.menu .ic svg{width:24px;height:24px}
+.menu a:nth-child(3) .ic{background:var(--orange)}
+.menu a:nth-child(4) .ic{background:var(--cream)}
+.menu a:nth-child(5) .ic{background:var(--teal);color:#fff}
+.menu b{display:block;font-family:var(--display);font-weight:400;font-size:20px;line-height:1.1}
+.menu small{display:block;font-size:13.5px;line-height:1.3;color:var(--muted)}
+
+/* Botones */
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;font-family:var(--display);font-size:21px;line-height:1.05;padding:13px 22px 12px;border-radius:16px;border:3px solid var(--brown);background:var(--cream);color:var(--brown);box-shadow:4px 4px 0 var(--brown);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--brown)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--brown)}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.teal{background:var(--teal);color:var(--on-teal)}
+.btn.orange{background:var(--orange);color:var(--brown)}
+.btn.ghost{background:var(--soft);color:var(--ink);box-shadow:4px 4px 0 var(--outline);border-color:var(--outline)}
+.btn[disabled]{opacity:.55;cursor:default;transform:none}
+
+/* Portada */
+.hero{background:var(--orange) url(assets/ondas.jpg) center bottom/cover no-repeat;border-bottom:3px solid var(--brown);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:20px;align-items:center;padding-block:34px 40px}
+.hero-copy{display:grid;gap:18px;justify-items:start;min-width:0}
+.kicker{font-family:var(--sig);font-weight:600;font-size:18px;background:var(--cream);color:var(--brown);border:3px solid var(--brown);border-radius:99px;padding:4px 16px 3px;line-height:1.3}
+.mega{width:100%;max-width:700px}
+.mega svg{width:100%;height:auto;display:block;overflow:visible}
+.mega text{font-family:var(--display);text-anchor:middle;stroke-linejoin:round;paint-order:stroke fill}
+.mega .s{fill:var(--brown);stroke:var(--brown)}
+.mega .t1{fill:#FFF8E1;stroke:var(--brown);stroke-width:11}
+.mega .t2{fill:var(--orange);stroke:var(--brown);stroke-width:17}
+.sig{font-family:var(--sig);font-weight:600;font-size:clamp(24px,4.4vw,38px);line-height:1.1;color:var(--brown);background:var(--cream);border:3px solid var(--brown);border-radius:26px 36px 30px 38px;padding:10px 26px 12px;box-shadow:4px 4px 0 var(--brown)}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px}
+.cta-line{font-family:var(--sig);font-weight:500;font-size:17px;color:var(--brown);background:var(--cream);border-radius:99px;padding:3px 14px 2px;border:2px solid var(--brown)}
+.hero-art{position:relative;justify-self:center;width:min(440px,100%);padding-top:64px}
+.hero-art img.sol{width:100%;height:auto;filter:drop-shadow(0 12px 0 rgba(100,38,6,.18))}
+.bubble{position:absolute;top:0;left:0;max-width:78%;background:var(--cream);color:var(--brown);border:3px solid var(--brown);border-radius:20px 20px 20px 4px;padding:10px 16px 9px;font-family:var(--display);font-size:clamp(19px,3vw,25px);line-height:1.1;box-shadow:4px 4px 0 var(--brown);z-index:2}
+.bubble::after{content:"";position:absolute;left:34px;bottom:-17px;width:22px;height:22px;background:var(--cream);border-right:3px solid var(--brown);border-bottom:3px solid var(--brown);transform:skewY(30deg) rotate(35deg) translateY(-4px)}
+
+/* Bloques comunes */
+.band{padding-block:44px}
+.h-sec{font-family:var(--display);font-weight:400;font-size:clamp(34px,6.4vw,56px);line-height:1;color:var(--ink);text-shadow:3px 3px 0 var(--orange);text-wrap:balance}
+.lede{font-size:18px;max-width:62ch;color:var(--ink)}
+.eyebrow{font-family:var(--sig);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+.card{background:var(--card);border:3px solid var(--outline);border-radius:20px;box-shadow:5px 5px 0 var(--outline)}
+.sec-head{display:grid;gap:10px;margin-bottom:26px}
+
+/* Inicio: tarjetas del menú */
+.menu-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.mc{display:grid;gap:10px;align-content:start;padding:20px;text-decoration:none}
+.mc .ic{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;background:var(--yellow);color:var(--brown);border:3px solid var(--brown)}
+.mc:nth-child(2) .ic{background:var(--orange)}
+.mc:nth-child(3) .ic{background:var(--cream)}
+.mc:nth-child(4) .ic{background:var(--teal);color:#fff}
+.mc .ic svg{width:28px;height:28px}
+.mc h3{font-family:var(--display);font-weight:400;font-size:25px;line-height:1.05}
+.mc p{font-size:15.5px;line-height:1.45;color:var(--muted)}
+.mc .go{font-family:var(--display);font-size:18px;color:var(--accent-ink);display:flex;align-items:center;gap:6px}
+.mc .go svg{width:18px;height:18px}
+.mc{transition:transform .12s,box-shadow .12s}
+.mc:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--outline)}
+.kit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:center;padding:28px}
+.kit-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.kit-item{display:grid;justify-items:center;gap:8px;text-align:center;font-family:var(--display);font-size:22px;line-height:1}
+.kit-item span.c{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:var(--soft);border:3px solid var(--outline);color:var(--ink)}
+.kit-item:nth-child(3) span.c{background:var(--teal);color:#fff;border-color:var(--brown)}
+.kit-item svg{width:38px;height:38px}
+.meet{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;align-items:center}
+.meet img{width:150px}
+.meet p+p{margin-top:8px}
+.quote{font-family:var(--display);font-size:24px;line-height:1.15;color:var(--accent-ink)}
+
+/* Vista: encabezado compacto */
+.view-head{background:var(--soft);border-bottom:3px solid var(--outline)}
+.view-head .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;padding-block:28px 0}
+.view-head .txt{display:grid;gap:10px;padding-bottom:26px}
+.view-head img{width:min(150px,28vw);height:auto;margin-bottom:-3px}
+
+/* Información: pestañas */
+.tabs{display:flex;gap:10px;overflow-x:auto;padding:4px 4px 12px;margin:0 -4px;scrollbar-width:thin}
+.tab{all:unset;box-sizing:border-box;cursor:pointer;flex:none;font-family:var(--display);font-size:19px;line-height:1;padding:11px 18px 10px;border-radius:99px;border:3px solid var(--outline);background:var(--card);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--orange);color:var(--brown);border-color:var(--brown);box-shadow:3px 3px 0 var(--brown)}
+.tab:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.panel{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:26px;padding:26px;align-items:start}
+.panel h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,4.6vw,36px);line-height:1.05;margin-bottom:14px;text-wrap:balance}
+.facts{display:grid;gap:12px}
+.facts li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start}
+.facts .dot{width:34px;height:34px;border-radius:10px;background:var(--yellow);border:2px solid var(--brown);display:grid;place-items:center;color:var(--brown)}
+.facts .dot svg{width:20px;height:20px}
+.facts b{font-weight:800}
+.side{display:grid;gap:14px;justify-items:center}
+.side .say{position:relative;background:var(--soft);border:3px solid var(--outline);border-radius:18px 18px 18px 4px;padding:12px 16px;font-family:var(--display);font-size:23px;line-height:1.12;color:var(--ink);justify-self:stretch}
+.side img{width:min(190px,60%)}
+.big-num{display:grid;gap:2px;background:var(--soft);border:3px solid var(--outline);border-radius:16px;padding:14px 18px;margin-bottom:14px}
+.big-num b{font-family:var(--display);font-weight:400;font-size:44px;line-height:1;color:var(--accent-ink)}
+.moments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.moment{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:center;padding:12px;border:3px solid var(--outline);border-radius:16px;background:var(--bg)}
+.moment .ic{width:44px;height:44px;border-radius:12px;background:var(--yellow);border:2px solid var(--brown);display:grid;place-items:center;color:var(--brown)}
+.moment .ic svg{width:24px;height:24px}
+.moment b{font-weight:800;line-height:1.25}
+.measures{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+
+/* Mitos y realidades */
+.game-wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:26px;align-items:start}
+.game{padding:24px;display:grid;gap:18px}
+.g-top{display:flex;align-items:center;gap:14px}
+.pill{font-family:var(--sig);font-weight:600;font-size:16px;background:var(--soft);border:2px solid var(--outline);border-radius:99px;padding:3px 14px 2px;white-space:nowrap}
+.gbar{flex:1;height:14px;border-radius:99px;border:2px solid var(--outline);background:var(--bg);overflow:hidden}
+.gbar i{display:block;height:100%;background:var(--orange);width:0;transition:width .3s}
+.g-q{font-family:var(--display);font-size:clamp(28px,5vw,40px);line-height:1.08;text-wrap:balance;min-height:3.3em;display:flex;align-items:center}
+.g-btns{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g-btns .btn{font-size:24px;padding:18px 10px 16px}
+.g-res{display:grid;gap:12px;border-top:3px dashed var(--line);padding-top:16px}
+.g-tag{justify-self:start;font-family:var(--display);font-size:22px;line-height:1;padding:8px 16px 7px;border-radius:99px;border:3px solid var(--brown);background:var(--yellow);color:var(--brown)}
+.g-tag.ok{background:var(--good-bg);color:var(--good);border-color:var(--good)}
+.g-sol{font-family:var(--display);font-size:22px;color:var(--accent-ink);line-height:1.15}
+.g-end{display:grid;gap:14px}
+.g-end h3{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,42px);line-height:1.05}
+.score{font-family:var(--display);font-size:64px;line-height:1;color:var(--accent-ink)}
+.rule{font-size:15px;color:var(--muted)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Datos */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.stat{padding:22px;display:grid;gap:8px;align-content:start}
+.stat .n{font-family:var(--display);font-size:clamp(46px,7vw,64px);line-height:1;color:var(--orange);-webkit-text-stroke:0;text-shadow:3px 3px 0 var(--brown)}
+.stat h3{font-family:var(--display);font-weight:400;font-size:23px;line-height:1.1}
+.stat p{font-size:16px;line-height:1.45}
+.src{display:inline-block;justify-self:start;font-size:13.5px;line-height:1.35;font-weight:700;color:var(--ink);background:var(--soft);border:2px solid var(--line);border-radius:10px;padding:5px 10px}
+.src b{color:var(--accent-ink)}
+.stat.txt .ic{width:54px;height:54px;border-radius:14px;background:var(--yellow);border:3px solid var(--brown);display:grid;place-items:center;color:var(--brown)}
+.stat.txt .ic svg{width:30px;height:30px}
+.chart{padding:24px 24px 28px;margin-top:22px}
+.chart h3{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.1;margin-bottom:4px}
+.chart .cap{font-size:15px;color:var(--muted);margin-bottom:6px}
+.uv{position:relative;margin:78px 8px 124px}
+.uv-bar{height:38px;border-radius:99px;border:3px solid var(--brown);overflow:hidden;background:linear-gradient(90deg,var(--yellow) 0 68.75%,var(--orange) 68.75% 100%);position:relative}
+.uv-bar span{position:absolute;left:68.75%;right:0;top:0;bottom:0;display:grid;place-items:center;font-family:var(--display);font-size:16px;color:var(--brown);letter-spacing:.04em}
+.uv-ticks i{position:absolute;top:46px;transform:translateX(-50%);font-style:normal;font-weight:800;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pin{position:absolute;width:0;transform:none}
+.pin::before{content:"";position:absolute;width:3px;background:var(--ink);left:-1.5px}
+.pin .lb{position:absolute;white-space:nowrap;transform:translateX(-50%);font-weight:800;font-size:14px;line-height:1.2;text-align:center;color:var(--ink);font-variant-numeric:tabular-nums}
+.pin .lb b{display:block;font-family:var(--display);font-weight:400;font-size:24px;line-height:1;color:var(--accent-ink)}
+.pin.up{top:0}
+.pin.up::before{top:-26px;height:30px}
+.pin.up .lb{bottom:calc(100% + 32px)}
+.pin.dn{top:0}
+.pin.dn::before{top:34px;height:62px}
+.pin.dn .lb{top:98px}
+.pin.dn.r .lb{transform:translateX(-72%)}
+.pin.up.r .lb{transform:translateX(-62%)}
+.day{position:relative;margin:56px 8px 56px}
+.day-bar{height:38px;border-radius:99px;border:3px solid var(--brown);background:var(--soft);position:relative;overflow:hidden}
+.day-bar i{position:absolute;left:25%;width:58.333%;top:0;bottom:0;background:var(--orange);display:grid;place-items:center;font-family:var(--display);font-style:normal;font-size:16px;color:var(--brown);white-space:nowrap}
+.day-ticks i{position:absolute;top:46px;transform:translateX(-50%);font-style:normal;font-weight:800;font-size:14px;color:var(--muted);white-space:nowrap}
+.day-ticks i:first-child{transform:none}
+.day-ticks i:last-child{transform:translateX(-100%)}
+.note-box{margin-top:22px;padding:16px 20px;display:grid;grid-template-columns:90px minmax(0,1fr);gap:18px;align-items:center}
+.note-box img{width:90px}
+
+/* Checklist */
+.cl-wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:26px;align-items:start}
+.cl{padding:24px;display:grid;gap:18px}
+.cl h3{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.05}
+.cl-group{display:grid;gap:12px}
+.cl-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.chk{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:56px minmax(0,1fr) 40px;gap:14px;align-items:center;padding:12px 14px;border:3px solid var(--outline);border-radius:18px;background:var(--bg);transition:background .15s}
+.chk:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.chk .ic{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;background:var(--yellow);color:var(--brown);border:3px solid var(--brown)}
+.chk .ic svg{width:30px;height:30px}
+.chk.nude .ic{background:var(--teal);color:#fff}
+.chk b{display:block;font-family:var(--display);font-weight:400;font-size:26px;line-height:1}
+.chk small{display:block;font-size:14.5px;line-height:1.3;color:var(--muted);margin-top:3px}
+.chk .tk{width:40px;height:40px;border-radius:50%;border:3px solid var(--outline);display:grid;place-items:center;color:transparent;background:var(--card)}
+.chk .tk svg{width:22px;height:22px}
+.chk[aria-pressed="true"]{background:var(--good-bg);border-color:var(--good)}
+.chk[aria-pressed="true"] .tk{background:var(--good);border-color:var(--good);color:#fff}
+.chk.small b{font-size:21px;line-height:1.1}
+.chk.small{grid-template-columns:44px minmax(0,1fr) 36px}
+.chk.small .ic{width:44px;height:44px}
+.chk.small .ic svg{width:24px;height:24px}
+.chk.small .tk{width:36px;height:36px}
+.prog{height:14px;flex:1;max-width:180px;border-radius:99px;border:2px solid var(--outline);background:var(--bg);overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--teal);transition:width .25s}
+.cl-status{font-family:var(--sig);font-weight:600;font-size:17px}
+.done{display:grid;gap:4px;background:var(--good-bg);border:3px solid var(--good);color:var(--ink);border-radius:16px;padding:14px 16px}
+.done b{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.05;color:var(--good)}
+.cl-side{display:grid;gap:14px;justify-items:center}
+.cl-side .say{background:var(--soft);border:3px solid var(--outline);border-radius:18px 18px 18px 4px;padding:12px 16px;font-family:var(--display);font-size:24px;line-height:1.12;justify-self:stretch}
+.cl-side img{width:min(220px,62%)}
+.next{display:grid;gap:12px;margin-top:40px}
+.next .row{display:flex;flex-wrap:wrap;gap:10px}
+.next a{font-family:var(--display);font-size:19px;text-decoration:none;padding:10px 18px 9px;border-radius:99px;border:3px solid var(--outline);background:var(--card);display:inline-flex;gap:8px;align-items:center}
+.next a:hover{background:var(--soft)}
+.next a svg{width:18px;height:18px}
+
+/* Sesión, racha y modal */
+body.modal-open{overflow:hidden}
+.bar-r{display:flex;align-items:center;gap:10px;flex:none}
+.avatar{all:unset;box-sizing:border-box;cursor:pointer;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--orange);color:var(--brown);border:3px solid var(--brown);font-family:var(--display);font-size:23px;line-height:1}
+.avatar:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.menu.umenu{width:min(300px,calc(100vw - 32px))}
+.menu.umenu .who{padding:8px 10px 4px;font-family:var(--display);font-size:24px;line-height:1.05}
+.menu.umenu .who small{display:block;font-family:var(--body);font-size:13.5px;color:var(--muted)}
+.menu.umenu a .ic{background:var(--yellow);color:var(--brown)}
+.fine{font-size:14px;line-height:1.4;color:var(--muted)}
+input[type=text],input[type=email],input[type=password]{font:inherit;padding:12px 14px;border-radius:12px;border:3px solid var(--outline);background:var(--bg);color:var(--ink);width:100%;min-width:0}
+input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.racha-card{background:var(--yellow);color:var(--brown);border:3px solid var(--brown);border-radius:26px;box-shadow:6px 6px 0 var(--brown);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:28px;padding:32px;align-items:center}
+.racha-copy{display:grid;gap:14px;justify-items:start;min-width:0}
+.racha-card .eyebrow,.racha-card .fine{color:var(--brown)}
+.racha-card .lede{color:var(--brown);max-width:58ch}
+.h-racha{font-family:var(--display);font-weight:400;font-size:clamp(60px,11vw,104px);line-height:.9;color:#FFF8E1;text-shadow:-3px -3px 0 var(--brown),3px -3px 0 var(--brown),-3px 3px 0 var(--brown),3px 3px 0 var(--brown),0 8px 0 var(--brown)}
+.ladder-h{display:grid;grid-template-columns:repeat(auto-fit,minmax(124px,1fr));gap:10px;width:100%}
+.ladder-h li{display:grid;gap:4px;align-content:start;justify-items:start;background:var(--cream);border:3px solid var(--brown);border-radius:16px;padding:12px;font-size:14.5px;line-height:1.25;color:var(--brown)}
+.ladder-h li .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--orange);border:2px solid var(--brown)}
+.ladder-h li .ic svg{width:22px;height:22px}
+.ladder-h b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1}
+.polaroid{background:#FFFFFF;border:3px solid var(--brown);border-radius:10px;padding:12px 12px 16px;transform:rotate(3deg);box-shadow:6px 6px 0 var(--brown);width:min(300px,100%);justify-self:center;color:var(--brown)}
+.polaroid .pic{position:relative;background:var(--orange) url(assets/ondas.jpg) center/cover;aspect-ratio:1/1;border:2px solid var(--brown);overflow:hidden;display:grid;place-items:end center}
+.polaroid .pic img{width:86%;height:auto}
+.polaroid .flame{position:absolute;top:8px;left:8px;display:flex;gap:6px;align-items:center;background:var(--cream);border:2px solid var(--brown);border-radius:99px;padding:3px 10px 2px;font-family:var(--display);font-size:18px;line-height:1.1}
+.polaroid .flame svg{width:18px;height:18px}
+.polaroid p{font-family:var(--sig);font-weight:600;text-align:center;font-size:18px;margin-top:10px}
+.gate{padding:28px;display:grid;gap:14px;justify-items:start}
+.gate h3{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,38px);line-height:1.05}
+.r-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}
+.r-box{padding:24px;display:grid;gap:14px;align-content:start}
+.r-box h3{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.05}
+.drop{display:grid;justify-items:center;gap:8px;text-align:center;padding:26px 16px;border:3px dashed var(--outline);border-radius:18px;background:var(--bg);cursor:pointer;font-family:var(--display);font-size:22px;line-height:1.1}
+.drop svg{width:46px;height:46px}
+.drop small{font-family:var(--body);font-size:14px;color:var(--muted)}
+#photo:focus-visible + .drop{outline:3px solid var(--teal);outline-offset:3px}
+.prev{display:grid;justify-items:center}
+.prev img{max-height:280px;width:auto;border:3px solid var(--outline);border-radius:14px}
+.err{color:var(--bad);font-weight:800;font-size:15px}
+.streak{display:flex;align-items:center;gap:16px}
+.streak .fl{width:78px;height:78px;border-radius:20px;background:var(--orange);border:3px solid var(--brown);display:grid;place-items:center;color:var(--brown);flex:none}
+.streak .fl svg{width:46px;height:46px}
+.streak .num{font-family:var(--display);font-size:64px;line-height:1;color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.streak .num small{font-size:26px;color:var(--ink)}
+.bigbar{height:20px;border-radius:99px;border:3px solid var(--outline);background:var(--bg);overflow:hidden}
+.bigbar i{display:block;height:100%;background:var(--teal);width:0;transition:width .3s}
+.nextline{font-weight:800}
+.ladder{display:grid;gap:8px}
+.ladder li{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 10px;border:2px solid var(--line);border-radius:14px;font-size:15px;line-height:1.25}
+.ladder li .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:var(--soft);border:2px solid var(--outline)}
+.ladder li .ic svg{width:22px;height:22px}
+.ladder li b{font-family:var(--display);font-weight:400;font-size:19px;display:block;line-height:1.05}
+.ladder li.done{background:var(--good-bg);border-color:var(--good)}
+.ladder li.next{border-color:var(--outline);box-shadow:3px 3px 0 var(--outline);background:var(--card)}
+.ladder .st{font-size:13px;font-weight:800;white-space:nowrap}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.dtile{aspect-ratio:1/1;border-radius:12px;border:2px dashed var(--line);display:grid;place-items:center;font-size:13px;font-weight:800;color:var(--muted);position:relative;overflow:hidden;background:var(--bg)}
+.dtile.on{border:3px solid var(--good);background:var(--good-bg);color:var(--good)}
+.dtile.today{outline:3px solid var(--teal);outline-offset:2px}
+.dtile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.dtile svg{width:24px;height:24px}
+.dtile .dn{position:absolute;left:3px;bottom:2px;background:var(--cream);color:var(--brown);border-radius:6px;padding:0 5px;font-size:11px;line-height:1.35;z-index:1}
+.friends{display:grid;gap:10px}
+.friend{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px;border:2px solid var(--line);border-radius:16px}
+.friend .av{width:48px;height:48px;border-radius:14px;background:var(--yellow);border:3px solid var(--brown);display:grid;place-items:center;font-family:var(--display);font-size:22px;color:var(--brown)}
+.friend b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1}
+.friend small{display:block;font-size:13.5px;color:var(--muted);margin-top:4px}
+.friend .wk{display:flex;gap:5px;margin-top:6px}
+.friend .wk i{width:14px;height:14px;border-radius:50%;border:2px solid var(--outline);background:var(--bg)}
+.friend .wk i.on{background:var(--good);border-color:var(--good)}
+.friend .fs{display:flex;align-items:center;gap:6px;font-family:var(--display);font-size:24px;color:var(--accent-ink);line-height:1}
+.friend .fs svg{width:22px;height:22px}
+.addf{display:flex;gap:10px;flex-wrap:wrap}
+.addf input{flex:1;min-width:170px}
+.linkbtn{all:unset;cursor:pointer;text-decoration:underline;font-size:14px;color:var(--muted)}
+.linkbtn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(38,14,4,.64);display:grid;place-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto}
+.modal-box{position:relative;width:min(440px,100%);padding:26px;display:grid;gap:14px;max-height:100%;overflow:auto}
+.modal .x{all:unset;box-sizing:border-box;cursor:pointer;position:absolute;right:14px;top:14px;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;border:3px solid var(--outline);background:var(--soft)}
+.modal .x svg{width:20px;height:20px}
+.modal .x:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--outline);border-radius:99px;overflow:hidden}
+.seg button{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;padding:9px;font-family:var(--display);font-size:19px;line-height:1.1}
+.seg button[aria-selected="true"]{background:var(--orange);color:var(--brown)}
+.seg button:focus-visible{outline:3px solid var(--teal);outline-offset:-5px}
+.fld{display:grid;gap:6px}
+.fld label{font-weight:800;font-size:15px}
+.modal form{display:grid;gap:14px}
+@media (max-width:960px){
+  .racha-card,.r-grid{grid-template-columns:minmax(0,1fr)}
+  .racha-card{padding:24px}
+  .polaroid{width:min(250px,80%)}
+}
+@media (max-width:620px){
+  .avatar{width:42px;height:42px;font-size:21px}
+  .bar-r{gap:8px}
+  .streak .num{font-size:54px}
+  .r-box{padding:18px}
+  .friend{grid-template-columns:44px minmax(0,1fr) auto;gap:10px}
+  .friend .av{width:44px;height:44px}
+  .days{gap:6px}
+}
+
+/* Puntos del checklist */
+.cl-wrap{grid-template-areas:"cl side" "cl pts"}
+.cl-wrap>.cl{grid-area:cl}
+.cl-wrap>.cl-side{grid-area:side}
+.cl-wrap>.pts{grid-area:pts}
+.pts{padding:22px;display:grid;gap:12px;align-content:start}
+.pts-head{display:flex;align-items:center;gap:12px}
+.pts-head .ic{width:46px;height:46px;border-radius:13px;background:var(--yellow);border:3px solid var(--brown);display:grid;place-items:center;color:var(--brown);flex:none}
+.pts-head .ic svg{width:26px;height:26px}
+.pts-head h3{font-family:var(--display);font-weight:400;font-size:26px;line-height:1.05}
+.pts-num{font-family:var(--display);font-size:60px;line-height:1;color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.pts-num small{font-size:22px;color:var(--ink)}
+.pts-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pts-stats div{background:var(--soft);border:2px solid var(--line);border-radius:14px;padding:10px 12px;display:grid;gap:2px;font-size:14px;line-height:1.25}
+.pts-stats b{font-family:var(--display);font-weight:400;font-size:32px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.wk7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.wk7 div{display:grid;justify-items:center;gap:4px;font-size:12px;font-weight:800;color:var(--muted)}
+.wk7 i{width:26px;height:26px;border-radius:50%;border:3px solid var(--outline);background:var(--bg);display:grid;place-items:center;color:#fff}
+.wk7 i svg{width:14px;height:14px}
+.wk7 i.on{background:var(--good);border-color:var(--good)}
+.wk7 i.half{background:var(--yellow);border-color:var(--brown)}
+@media (max-width:960px){
+  .cl-wrap{grid-template-areas:"side" "cl" "pts"}
+  .cl-wrap>.cl-side{grid-template-columns:110px minmax(0,1fr)}
+}
+
+/* Franja inferior blanca (regla de campaña) */
+.strip{background:#FFFFFF;color:#642606;border-top:3px solid var(--brown);padding-block:16px calc(14px + env(safe-area-inset-bottom,0px))}
+.strip-in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center}
+.strip img.h4{height:28px;width:auto}
+.strip img.al{height:44px;width:auto}
+.strip .legend{font-size:13px;line-height:1.35;text-align:center;font-weight:600}
+.strip .tags{margin-top:10px;text-align:center;font-family:var(--sig);font-weight:600;font-size:14px;color:#B84600}
+
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:minmax(0,1fr);padding-block:26px 32px}
+  .hero-art{width:min(380px,86%)}
+  .menu-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kit{grid-template-columns:minmax(0,1fr)}
+  .panel,.game-wrap,.cl-wrap{grid-template-columns:minmax(0,1fr)}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cl-side{position:static;order:-1;grid-template-columns:110px minmax(0,1fr);align-items:center}
+  .cl-side img{width:110px}
+  .side{grid-template-columns:110px minmax(0,1fr);align-items:center}
+  .side img{width:110px}
+  .side .say{order:2}
+}
+@media (max-width:620px){
+  body{font-size:16.5px}
+  .brand span{font-size:16px}
+  .brand img{width:36px;height:36px}
+  .menu-btn{font-size:18px;padding:9px 14px 8px}
+  .menu-cards,.stats,.moments,.measures{grid-template-columns:minmax(0,1fr)}
+  .meet{grid-template-columns:minmax(0,1fr)}
+  .meet img{width:120px}
+  .kit-item{font-size:19px}
+  .kit-item span.c{width:66px;height:66px}
+  .strip-in{grid-template-columns:minmax(0,1fr);justify-items:center;gap:12px}
+  .panel,.game,.cl{padding:18px}
+  .note-box{grid-template-columns:minmax(0,1fr)}
+  .view-head img{width:92px}
+  .g-btns .btn{font-size:21px}
+  .chk{grid-template-columns:48px minmax(0,1fr) 36px;gap:12px}
+  .chk .ic{width:48px;height:48px}
+  .uv{margin-inline:2px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.mc,.gbar i,.prog i{transition:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5"/><path d="M11.5 11.8 20 3.5M16 7.5l3 3M13.5 10l2 2"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="i-tube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l1 4H7zM7 7h10v13a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 7 20z"/><circle cx="12" cy="14" r="2.3"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 10.5a4 4 0 0 1-.5 8z"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6M12 7.2v.1"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.4a2.9 2.9 0 1 1 4.4 2.5c-1 .6-1.6 1.2-1.6 2.3M12 17.3v.1"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12M3.5 6l1.2 1.2L7 4.8M3.5 12l1.2 1.2L7 10.8M3.5 18l1.2 1.2L7 16.8"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 3.5 20.5 11V20.5h-5.5v-6h-6v6H3.5z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 10 18 19.5 6.5"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="m12 7.5 4 2.9-1.5 4.7h-5L8 10.4zM12 7.5V2.6M16 10.4l4.4-1.4M14.5 15.1l2.7 3.7M9.5 15.1l-2.7 3.7M8 10.4 3.6 9"/></symbol>
+    <symbol id="i-bus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="14" rx="3"/><path d="M4 11h16M8 21v-3.5M16 21v-3.5M8 14.5h.1M16 14.5h.1"/></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4.5" r="2"/><path d="m10 21 2-6-3-3 1.5-5.5 3.5 2.5 3 1M12 15l3.5 1.5L17 21M8.5 11 6 13"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l3.5 2"/></symbol>
+    <symbol id="i-shade" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0zM12 12v7.5a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-glasses" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14h4M3 14 4.5 7.5M21 14l-1.5-6.5"/></symbol>
+    <symbol id="i-shirt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8.5 3.5-5.5 3 2.5 4 2.5-1V20.5h9V9.5l2.5 1 2.5-4-5.5-3a3.6 3.6 0 0 1-7 0z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c.6 3.4 5 5.3 5 10.2a5 5 0 0 1-10 0c0-1.8.8-3.2 1.9-4.3.2 1.4.9 2.2 1.8 2.5C10.4 8.2 10.9 5.2 12 2.5z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c2 .6 3.2 2.3 3.5 5.2"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5h3l1.7-2.5h7.6l1.7 2.5h3v11h-17z"/><circle cx="12" cy="13.5" r="3.6"/></symbol>
+    <symbol id="i-tv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="12.5" rx="2.5"/><path d="M8 21h8M12 17v4M10.5 8.5l4 2.5-4 2.5z"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5V4h8.5L21 13.5 13.5 21z"/><circle cx="7.8" cy="8.8" r="1.2"/></symbol>
+    <symbol id="i-fork" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v8M4.5 3v5a2.5 2.5 0 0 0 5 0V3M7 11v10M17 21V3c-2.2 1.2-3 3.5-3 6.5V14h3"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="9" width="17" height="4" rx="1"/><path d="M5 13v8h14v-8M12 9v12M12 9c-2.6 0-4.6-.8-4.6-2.6S10.4 3.4 12 9zM12 9c2.6 0 4.6-.8 4.6-2.6S13.6 3.4 12 9z"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H4.5v16H9M15 8l4 4-4 4M19 12H9"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#inicio" aria-label="Al sol no se le da papaya, ir al inicio">
+      <img src="assets/solancho-cara.png" alt="" width="42" height="42">
+      <span>Al sol no se le da papaya</span>
+    </a>
+    <div class="bar-r">
+      <button class="avatar" id="avatar" type="button" hidden aria-expanded="false" aria-controls="umenu" aria-label="Mi cuenta">M</button>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">
+        <svg aria-hidden="true"><use href="#i-menu" id="menuIco"/></svg><span>Menú</span>
+      </button>
+    </div>
+    <nav class="menu" id="menu" aria-label="Qué hay en la página" hidden>
+      <a href="#inicio" data-v="inicio"><span class="ic"><svg aria-hidden="true"><use href="#i-home"/></svg></span><span><b>Inicio</b><small>Volvé a la portada de Solancho.</small></span></a>
+      <a href="#informacion" data-v="informacion"><span class="ic"><svg aria-hidden="true"><use href="#i-info"/></svg></span><span><b>Información educativa</b><small>Lo básico de la protección solar, sin regaños.</small></span></a>
+      <a href="#mitos" data-v="mitos"><span class="ic"><svg aria-hidden="true"><use href="#i-help"/></svg></span><span><b>Mitos y realidades</b><small>Seis tarjetas para probar qué tan en la juega estás.</small></span></a>
+      <a href="#datos" data-v="datos"><span class="ic"><svg aria-hidden="true"><use href="#i-chart"/></svg></span><span><b>Datos impactantes y verificables</b><small>Cifras de Cali, cada una con su fuente.</small></span></a>
+      <a href="#checklist" data-v="checklist"><span class="ic"><svg aria-hidden="true"><use href="#i-list"/></svg></span><span><b>Checklist de salida</b><small>Llaves, celular, bloqueador. Revisá tu lista.</small></span></a>
+    </nav>
+    <nav class="menu umenu" id="umenu" aria-label="Mi cuenta" hidden>
+      <p class="who"><span id="uName">Hola</span><small id="uMail"></small></p>
+      <a href="#racha"><span class="ic"><svg aria-hidden="true"><use href="#i-flame"/></svg></span><span><b>Mi racha</b><small>Tu foto del día y tu avance.</small></span></a>
+      <a href="#inicio" id="logout"><span class="ic"><svg aria-hidden="true"><use href="#i-logout"/></svg></span><span><b>Cerrar sesión</b><small>Salí de tu cuenta en este navegador.</small></span></a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ INICIO ============ -->
+<section id="v-inicio" data-view="inicio">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker" id="heroKick">¿Estás en la juega?</p>
+        <h1 class="mega">
+          <span class="sr">Al sol no se le da papaya</span>
+          <svg viewBox="0 0 680 270" aria-hidden="true" focusable="false">
+            <text class="s" x="340" y="70" font-size="60" textLength="640" lengthAdjust="spacingAndGlyphs" transform="translate(0,6)" style="stroke-width:11">AL SOL NO SE LE DA</text>
+            <text class="t1" x="340" y="70" font-size="60" textLength="640" lengthAdjust="spacingAndGlyphs">AL SOL NO SE LE DA</text>
+            <text class="s" x="340" y="240" font-size="168" textLength="660" lengthAdjust="spacingAndGlyphs" transform="translate(0,8)" style="stroke-width:17">PAPAYA</text>
+            <text class="t2" x="340" y="240" font-size="168" textLength="660" lengthAdjust="spacingAndGlyphs">PAPAYA</text>
+          </svg>
+        </h1>
+        <p class="sig">En la juega con tu piel</p>
+        <div class="cta-row">
+          <button type="button" class="btn teal" id="heroLogin"><svg aria-hidden="true"><use href="#i-user"/></svg><span id="heroLoginTxt">Iniciar sesión</span></button>
+        </div>
+        <p class="cta-line">No le des papaya a Solancho.</p>
+      </div>
+      <div class="hero-art">
+        <p class="bubble">¡Ey, ve! ¿Me vas a dar papaya?</p>
+        <img class="sol" src="assets/solancho.png" alt="Solancho, el sol de Cali, con gafas oscuras, tenis y un protector solar NUDE en la mano" width="760" height="817">
+      </div>
+    </div>
+  </div>
+
+  <div class="band wrap" id="rachaHome">
+    <div class="racha-card">
+      <div class="racha-copy">
+        <p class="eyebrow">Tu constancia cuenta</p>
+        <h2 class="h-racha">Racha</h2>
+        <p class="lede">Subí una foto al día que muestre que usaste tu bloqueador y sumá días seguidos con tus parceros. Al llegar a 15 días, luego a 1 mes y después cada mes, tu racha se vuelve un beneficio. Mientras más meses acumulés, más beneficios ganás.</p>
+        <ul class="ladder-h" aria-label="Beneficios de ejemplo por racha">
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-tv"/></svg></span><b>15 días</b><span>Suscripción a Win+</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-ball"/></svg></span><b>1 mes</b><span>Descuentos en canchas sintéticas</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-tag"/></svg></span><b>2 meses</b><span>Descuentos en tiendas</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-fork"/></svg></span><b>3 meses</b><span>Descuentos en restaurantes</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-gift"/></svg></span><b>Cada mes</b><span>Un beneficio más mientras sumés meses</span></li>
+        </ul>
+        <p class="fine">Beneficios de ejemplo, sujetos a las alianzas de la Alcaldía con marcas.</p>
+        <div class="cta-row"><a class="btn teal" href="#racha"><svg aria-hidden="true"><use href="#i-flame"/></svg>Cumplí con la racha</a></div>
+      </div>
+      <div class="polaroid" aria-hidden="true">
+        <div class="pic"><img src="assets/solancho.png" alt="" width="260" height="280"><span class="flame"><svg><use href="#i-flame"/></svg>15 días</span></div>
+        <p>Hoy sí usé bloqueador</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="band wrap" style="padding-top:0">
+    <div class="card kit">
+      <div>
+        <p class="eyebrow">La regla de la salida</p>
+        <h2 class="h-sec" style="font-size:clamp(30px,5vw,44px)">Lo que no dejás botado, tampoco se lo dejás al sol</h2>
+        <p class="lede" style="margin-top:12px">Salir sin bloqueador es darle papaya al sol. Estar en la juega es llevarlo puesto.</p>
+      </div>
+      <div class="kit-items">
+        <div class="kit-item"><span class="c"><svg aria-hidden="true"><use href="#i-key"/></svg></span>Llaves</div>
+        <div class="kit-item"><span class="c"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>Celular</div>
+        <div class="kit-item"><span class="c"><svg aria-hidden="true"><use href="#i-tube"/></svg></span>Bloqueador</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band wrap" style="padding-top:0">
+    <div class="meet">
+      <img src="assets/solancho.png" alt="" width="150" height="161">
+      <div>
+        <p class="eyebrow">Quién es Solancho</p>
+        <p class="lede">Es el sol de Cali, personificado. Nació acá y nunca se va de vacaciones: sale todos los días, a las 10 de la mañana ya está en la cancha y en la tarde se asoma aunque esté nublado.</p>
+        <p class="lede">No es el villano. Es el parcero más vivo del grupo: te pilla cuando das papaya y después te enseña a ponerte en la juega.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFORMACIÓN ============ -->
+<section id="v-informacion" data-view="informacion" hidden>
+  <div class="view-head"><div class="wrap">
+    <div class="txt"><p class="eyebrow">Información educativa</p><h2 class="h-sec">Lo básico para no dar papaya</h2><p class="lede">Cuidarte es salud y rendimiento. Acá vas a encontrar lo que necesitás saber, en corto y sin regaños.</p></div>
+    <img src="assets/solancho.png" alt="" width="150" height="161">
+  </div></div>
+  <div class="band wrap">
+    <div class="tabs" role="tablist" aria-label="Temas de información" id="infoTabs">
+      <button class="tab" role="tab" id="t-uv" aria-controls="p-uv" aria-selected="true">El sol que no ves</button>
+      <button class="tab" role="tab" id="t-fps" aria-controls="p-fps" aria-selected="false" tabindex="-1">El FPS</button>
+      <button class="tab" role="tab" id="t-reap" aria-controls="p-reap" aria-selected="false" tabindex="-1">Cada cuánto</button>
+      <button class="tab" role="tab" id="t-dar" aria-controls="p-dar" aria-selected="false" tabindex="-1">Dónde das papaya</button>
+      <button class="tab" role="tab" id="t-mas" aria-controls="p-mas" aria-selected="false" tabindex="-1">Más que bloqueador</button>
+    </div>
+
+    <div class="card panel" role="tabpanel" id="p-uv" aria-labelledby="t-uv">
+      <div>
+        <h3>La radiación UV no se ve y a veces ni se siente</h3>
+        <ul class="facts">
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-sun"/></svg></span><p><b>No siempre se siente.</b> Sus efectos se acumulan con los años.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-cloud"/></svg></span><p><b>Atraviesa las nubes.</b> Un día nublado no elimina la necesidad de protegerte.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-info"/></svg></span><p><b>No siempre se nota.</b> Algunos efectos se acumulan con el tiempo y no siempre aparecen como una quemadura inmediata.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-clock"/></svg></span><p><b>La radiación UVA contribuye al fotoenvejecimiento.</b> La exposición acumulada puede generar efectos a largo plazo.</p></li>
+        </ul>
+      </div>
+      <div class="side"><img src="assets/solancho.png" alt="" width="190" height="204"><p class="say">Las nubes no me tapan, mijo.</p></div>
+    </div>
+
+    <div class="card panel" role="tabpanel" id="p-fps" aria-labelledby="t-fps" hidden>
+      <div>
+        <h3>¿Qué es el FPS?</h3>
+        <div class="big-num"><b>FPS</b><span>Factor de Protección Solar</span></div>
+        <ul class="facts">
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-info"/></svg></span><p>Es un indicador de la protección frente a la radiación UVB bajo condiciones de prueba.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-check"/></svg></span><p>También es importante elegir un protector de <b>amplio espectro</b>.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-tube"/></svg></span><p>En esta campaña: <b>NUDE</b>, protector solar mineral FPS 50+ en formatos prácticos que podés llevar con las llaves o el celular.</p></li>
+        </ul>
+      </div>
+      <div class="side"><img src="assets/solancho.png" alt="" width="190" height="204"><p class="say">Llaves, celular, bloqueador… ahora sí, en la juega.</p></div>
+    </div>
+
+    <div class="card panel" role="tabpanel" id="p-reap" aria-labelledby="t-reap" hidden>
+      <div>
+        <h3>Echárselo una vez no alcanza</h3>
+        <div class="big-num"><b>Cada 2 horas</b><span>aproximadamente, siguiendo las indicaciones del producto</span></div>
+        <ul class="facts">
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-reset"/></svg></span><p>Reaplicá <b>antes</b> si nadás, sudás intensamente o te secás la piel con una toalla.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-clock"/></svg></span><p>Aplicarlo una vez no garantiza protección durante toda la jornada.</p></li>
+          <li><span class="dot"><svg aria-hidden="true"><use href="#i-ball"/></svg></span><p>En la cancha, aprovechá la pausa de hidratación para reaplicar.</p></li>
+        </ul>
+      </div>
+      <div class="side"><img src="assets/solancho.png" alt="" width="190" height="204"><p class="say">Pilas, que a las 10 ya estoy en la cancha.</p></div>
+    </div>
+
+    <div class="card panel" role="tabpanel" id="p-dar" aria-labelledby="t-dar" hidden style="grid-template-columns:minmax(0,1fr)">
+      <div>
+        <h3>Cinco momentos en los que se da papaya</h3>
+        <div class="moments">
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-walk"/></svg></span><b>Caminar por el campus entre clases, en las horas de mayor radiación.</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-ball"/></svg></span><b>Jugar fútbol o entrenar “solo un ratico”.</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-bus"/></svg></span><b>Esperar el MIO o ir en moto.</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-cloud"/></svg></span><b>Los días nublados.</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-reset"/></svg></span><b>Echártelo en la mañana y no reaplicar.</b></div>
+        </div>
+        <p class="quote" style="margin-top:18px">“¡Ey, ve! ¿Me vas a dar papaya?” <span style="color:var(--muted);font-size:17px;font-family:var(--body)">Solancho</span></p>
+      </div>
+    </div>
+
+    <div class="card panel" role="tabpanel" id="p-mas" aria-labelledby="t-mas" hidden>
+      <div>
+        <h3>Más que bloqueador</h3>
+        <p style="margin-bottom:14px">La protección solar combina distintas medidas. El bloqueador es una, y se suma a las otras.</p>
+        <div class="measures">
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-tube"/></svg></span><b>Protector solar</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-shade"/></svg></span><b>Buscar sombra</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-shirt"/></svg></span><b>Ropa protectora</b></div>
+          <div class="moment"><span class="ic"><svg aria-hidden="true"><use href="#i-glasses"/></svg></span><b>Gafas con protección UV</b></div>
+        </div>
+      </div>
+      <div class="side"><img src="assets/solancho.png" alt="" width="190" height="204"><p class="say">Yo salgo todos los días. ¿Y tu bloqueador?</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MITOS ============ -->
+<section id="v-mitos" data-view="mitos" hidden>
+  <div class="view-head"><div class="wrap">
+    <div class="txt"><p class="eyebrow">Mitos y realidades</p><h2 class="h-sec">¿Mito o realidad, ve?</h2><p class="lede">Seis frases. Decidí si es mito o realidad y Solancho te cuenta qué pasa de verdad.</p></div>
+    <img src="assets/solancho.png" alt="" width="150" height="161">
+  </div></div>
+  <div class="band wrap">
+    <div class="game-wrap">
+      <div class="card game" id="game">
+        <div id="gPlay" style="display:grid;gap:18px">
+          <div class="g-top"><span class="pill">Tarjeta <b id="gN">1</b> de 6</span><div class="gbar" aria-hidden="true"><i id="gBar"></i></div></div>
+          <p class="g-q" id="gQ"></p>
+          <div class="g-btns" id="gBtns">
+            <button type="button" class="btn orange" data-a="mito">Mito</button>
+            <button type="button" class="btn teal" data-a="real">Realidad</button>
+          </div>
+          <div class="g-res" id="gRes" hidden aria-live="polite">
+            <span class="g-tag" id="gTag"></span>
+            <p id="gExp"></p>
+            <p class="g-sol" id="gSol"></p>
+            <div><button type="button" class="btn" id="gNext">Siguiente</button></div>
+          </div>
+        </div>
+        <div class="g-end" id="gEnd" hidden aria-live="polite">
+          <p class="eyebrow">Tu resultado</p>
+          <p class="score"><span id="gScore">0</span> de 6</p>
+          <h3 id="gEndT"></h3>
+          <p id="gEndP"></p>
+          <div class="btn-row">
+            <button type="button" class="btn" id="gAgain"><svg aria-hidden="true"><use href="#i-reset"/></svg>Jugar otra vez</button>
+            <a class="btn teal" href="#checklist"><svg aria-hidden="true"><use href="#i-list"/></svg>Revisá tu lista de salida</a>
+          </div>
+        </div>
+        <p class="rule">Acá nadie pierde por responder mal: el error también enseña.</p>
+      </div>
+      <div class="side" style="position:sticky;top:calc(env(safe-area-inset-top,0px) + 86px)">
+        <img src="assets/solancho.png" alt="" width="220" height="236" style="width:min(220px,60%)">
+        <p class="say" id="gBubble">Pilas. Decidí vos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DATOS ============ -->
+<section id="v-datos" data-view="datos" hidden>
+  <div class="view-head"><div class="wrap">
+    <div class="txt"><p class="eyebrow">Datos impactantes y verificables</p><h2 class="h-sec">El sol de Cali, en números</h2><p class="lede">La exposición pasa en el campus, en la cancha y en el paradero, no solo en vacaciones. Cada dato trae su fuente para que lo puedas verificar.</p></div>
+    <img src="assets/solancho.png" alt="" width="150" height="161">
+  </div></div>
+  <div class="band wrap">
+    <div class="stats">
+      <article class="card stat"><p class="n">14+</p><h3>Índice UV en el solmáforo de Cali</h3><p>El solmáforo de Cali ha marcado más de 14 en el índice UV. El nivel extremo empieza en 11.</p><p class="src"><b>Fuente:</b> Alcaldía de Cali / Dagma</p></article>
+      <article class="card stat"><p class="n">13,4</p><h3>Índice UV máximo en Icesi</h3><p>La estación del Observatorio Ambiental de Cali ubicada en Icesi registró un índice UV máximo de 13,4.</p><p class="src"><b>Fuente:</b> Observatorio Ambiental de Cali, boletín OAC22, febrero de 2025</p></article>
+      <article class="card stat"><p class="n">121</p><h3>Veces por encima del nivel 10</h3><p>Esa misma estación superó el nivel 10 de índice UV en 121 ocasiones.</p><p class="src"><b>Fuente:</b> Observatorio Ambiental de Cali, boletín OAC22, febrero de 2025</p></article>
+      <article class="card stat"><p class="n" style="font-size:clamp(34px,5vw,42px)">9 a. m.<br>a 4 p. m.</p><h3>Horas para evitar el sol directo</h3><p>El Ideam recomienda evitar la exposición directa entre las 9 a. m. y las 4 p. m.</p><p class="src"><b>Fuente:</b> Ideam</p></article>
+      <article class="card stat txt"><span class="ic"><svg aria-hidden="true"><use href="#i-cloud"/></svg></span><h3>Las nubes no te salvan</h3><p>La radiación UV puede atravesar las nubes.</p><p class="src"><b>Fuente:</b> dato oficial verificado de la campaña</p></article>
+      <article class="card stat txt"><span class="ic"><svg aria-hidden="true"><use href="#i-info"/></svg></span><h3>El cáncer de piel es el más frecuente en Colombia</h3><p>Cuidarte hoy es prevenir mañana.</p><p class="src"><b>Fuente:</b> dato oficial verificado de la campaña</p></article>
+    </div>
+
+    <div class="card chart">
+      <h3>Dónde queda Cali en la escala del índice UV</h3>
+      <p class="cap">Escala de 0 a 16. El nivel extremo empieza en 11.</p>
+      <div class="uv" role="img" aria-label="Escala del índice UV de 0 a 16. El nivel extremo empieza en 11. La estación de Icesi registró un máximo de 13,4 y el solmáforo de Cali ha marcado más de 14.">
+        <div class="uv-bar"><span>EXTREMO</span></div>
+        <div class="uv-ticks" aria-hidden="true">
+          <i style="left:0">0</i><i style="left:31.25%">5</i><i style="left:62.5%">10</i><i style="left:68.75%;color:var(--accent-ink)">11</i><i style="left:93.75%">15</i>
+        </div>
+        <div class="pin up r" style="left:83.75%"><span class="lb"><b>13,4</b>máximo en Icesi</span></div>
+        <div class="pin dn r" style="left:87.5%"><span class="lb"><b>14+</b>solmáforo de Cali</span></div>
+      </div>
+      <p class="rule">Fuentes: Alcaldía de Cali / Dagma y Observatorio Ambiental de Cali (OAC22, febrero de 2025).</p>
+    </div>
+
+    <div class="card chart">
+      <h3>Las horas en que el Ideam recomienda evitar el sol directo</h3>
+      <p class="cap">Un día de 6 a. m. a 6 p. m.</p>
+      <div class="day" role="img" aria-label="De 9 de la mañana a 4 de la tarde es la franja en la que el Ideam recomienda evitar la exposición directa al sol.">
+        <div class="day-bar"><i>9 a. m. a 4 p. m.</i></div>
+        <div class="day-ticks" aria-hidden="true">
+          <i style="left:0">6 a. m.</i><i style="left:25%">9 a. m.</i><i style="left:50%">12 m.</i><i style="left:83.333%">4 p. m.</i><i style="left:100%">6 p. m.</i>
+        </div>
+      </div>
+      <p class="rule" style="margin-top:-24px">Fuente: Ideam.</p>
+    </div>
+
+    <div class="card note-box">
+      <img src="assets/solancho.png" alt="" width="90" height="97">
+      <p class="quote">Que no lo veas no significa que no pase.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="v-checklist" data-view="checklist" hidden>
+  <div class="view-head"><div class="wrap">
+    <div class="txt"><p class="eyebrow">Checklist de salida</p><h2 class="h-sec">¿Estás en la juega?</h2><p class="lede">Revisá tu lista de salida. Tocá cada cosa cuando la tengas.</p></div>
+    <img src="assets/solancho.png" alt="" width="150" height="161">
+  </div></div>
+  <div class="band wrap">
+    <div class="cl-wrap">
+      <div class="card cl">
+        <div class="cl-group">
+          <div class="cl-head"><h3>Antes de salir</h3><div class="prog" aria-hidden="true"><i id="clBar"></i></div></div>
+          <button type="button" class="chk" aria-pressed="false" data-k="llaves"><span class="ic"><svg aria-hidden="true"><use href="#i-key"/></svg></span><span><b>Llaves</b><small>Lo que ya no se te olvida.</small></span><span class="tk"><svg aria-hidden="true"><use href="#i-check"/></svg></span></button>
+          <button type="button" class="chk" aria-pressed="false" data-k="celular"><span class="ic"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><span><b>Celular</b><small>Tampoco se queda en la mesa.</small></span><span class="tk"><svg aria-hidden="true"><use href="#i-check"/></svg></span></button>
+          <button type="button" class="chk nude" aria-pressed="false" data-k="bloqueador"><span class="ic"><svg aria-hidden="true"><use href="#i-tube"/></svg></span><span><b>Bloqueador</b><small>El que no se ve, pero cuenta.</small></span><span class="tk"><svg aria-hidden="true"><use href="#i-check"/></svg></span></button>
+          <p class="cl-status" id="clStatus" aria-live="polite"></p>
+          <div class="done" id="clDone" hidden aria-live="polite"><b>Todo listo, ve.</b><span>Consejo de Solancho: usá protector solar todos los días, así no veas el sol.</span></div>
+        </div>
+        <div class="cl-group">
+          <div class="cl-head"><h3>Durante el día</h3></div>
+          <button type="button" class="chk small" aria-pressed="false" data-k="reaplico"><span class="ic"><svg aria-hidden="true"><use href="#i-reset"/></svg></span><span><b>Reaplico si sigo al aire libre</b><small>Siguiendo las indicaciones del producto. En la cancha, en la pausa de hidratación.</small></span><span class="tk"><svg aria-hidden="true"><use href="#i-check"/></svg></span></button>
+          <button type="button" class="chk small" aria-pressed="false" data-k="sombra"><span class="ic"><svg aria-hidden="true"><use href="#i-shade"/></svg></span><span><b>Busco sombra cuando puedo</b><small>Sobre todo entre las 9 a. m. y las 4 p. m.</small></span><span class="tk"><svg aria-hidden="true"><use href="#i-check"/></svg></span></button>
+        </div>
+        <div><button type="button" class="btn ghost" id="clReset"><svg aria-hidden="true"><use href="#i-reset"/></svg>Empezar de nuevo</button></div>
+      </div>
+      <div class="cl-side">
+        <img src="assets/solancho.png" alt="" width="220" height="236">
+        <p class="say" id="clBubble">¡Ey, ve! ¿Me vas a dar papaya?</p>
+      </div>
+      <div class="card pts" id="pts">
+        <div class="pts-head"><span class="ic"><svg aria-hidden="true"><use href="#i-gift"/></svg></span><h3>Tus puntos</h3></div>
+        <p class="pts-num"><span id="pN">0</span> <small>de 30 puntos</small></p>
+        <div class="bigbar" aria-hidden="true"><i id="pBar"></i></div>
+        <p class="nextline" id="pLeft"></p>
+        <div class="pts-stats">
+          <div><b id="pRev">0</b><span>Días que revisaste tu lista</span></div>
+          <div><b id="pB">0</b><span>Días con bloqueador</span></div>
+        </div>
+        <p id="pToday" aria-live="polite"></p>
+        <div class="wk7" id="pWeek" aria-label="Tus últimos 7 días"></div>
+        <div class="done" id="pWin" hidden aria-live="polite"><b>¡Mes completado!</b><span id="pWinTxt"></span></div>
+        <p class="fine">Ganás 1 punto por cada día que marcás el bloqueador. Al completar 30 puntos, que es 1 mes, recibís un beneficio sorpresa de una alianza de la Alcaldía. Demostración: tus puntos se guardan en este navegador.</p>
+        <p><button type="button" class="linkbtn" id="pReset">Reiniciar mis puntos de ejemplo</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RACHA ============ -->
+<section id="v-racha" data-view="racha" hidden>
+  <div class="view-head"><div class="wrap">
+    <div class="txt"><p class="eyebrow">Racha</p><h2 class="h-sec">Cumplí con la racha</h2><p class="lede">Una foto al día con tu bloqueador. Sumá días seguidos con tus parceros y llegá al siguiente beneficio.</p></div>
+    <img src="assets/solancho.png" alt="" width="150" height="161">
+  </div></div>
+  <div class="band wrap">
+    <div class="card gate" id="rGate">
+      <h3>Iniciá sesión para ver tu racha</h3>
+      <p class="lede">Con tu cuenta guardás tu foto del día, ves tus últimos días, el avance de tus amigos y cuánto te falta para el siguiente beneficio.</p>
+      <button type="button" class="btn teal" id="gateLogin"><svg aria-hidden="true"><use href="#i-user"/></svg>Iniciar sesión</button>
+    </div>
+
+    <div id="rApp" hidden style="display:grid;gap:22px">
+      <div class="r-grid">
+        <div class="card r-box">
+          <h3>Tu foto de hoy</h3>
+          <div id="rDone" hidden></div>
+          <div id="rUpload" style="display:grid;gap:14px">
+            <p>Sacá o elegí una foto donde se vea que usaste tu bloqueador: una por día.</p>
+            <input id="photo" class="sr" type="file" accept="image/*">
+            <label class="drop" for="photo"><svg aria-hidden="true"><use href="#i-camera"/></svg><span>Tocá para elegir o tomar tu foto</span><small>Una foto por día</small></label>
+            <div class="prev" id="prev"></div>
+            <p class="err" id="rErr" role="alert" hidden></p>
+            <div><button type="button" class="btn teal" id="send" disabled><svg aria-hidden="true"><use href="#i-check"/></svg>Enviar foto del día</button></div>
+            <p class="fine">Demostración: la foto se queda en este navegador y no se envía a ningún servidor.</p>
+          </div>
+        </div>
+        <div class="card r-box">
+          <h3>Tu racha</h3>
+          <div class="streak"><span class="fl"><svg aria-hidden="true"><use href="#i-flame"/></svg></span><p class="num"><span id="rNum">0</span> <small>días</small></p></div>
+          <p id="rMsg"></p>
+          <div class="bigbar" aria-hidden="true"><i id="rBar"></i></div>
+          <p class="nextline" id="rNext"></p>
+          <ul class="ladder" id="rLadder"></ul>
+          <p class="fine">Beneficios de ejemplo, sujetos a las alianzas de la Alcaldía con marcas.</p>
+        </div>
+      </div>
+
+      <div class="card r-box">
+        <h3>Tus últimos 14 días</h3>
+        <div class="days" id="rDays"></div>
+      </div>
+
+      <div class="card r-box">
+        <h3>Tus amigos</h3>
+        <div class="friends" id="rFriends"></div>
+        <form class="addf" id="addF" novalidate>
+          <label class="sr" for="fname">Nombre o correo de tu amigo</label>
+          <input id="fname" type="text" placeholder="Nombre o correo de tu amigo" autocomplete="off">
+          <button type="submit" class="btn"><svg aria-hidden="true"><use href="#i-plus"/></svg>Agregar</button>
+        </form>
+        <p class="fine" id="fNote">Los amigos y su avance son ejemplos de la demostración.</p>
+      </div>
+      <p><button type="button" class="linkbtn" id="rReset">Reiniciar mi racha de ejemplo</button></p>
+    </div>
+  </div>
+</section>
+
+<div class="wrap" id="nextWrap"><div class="next" id="next"></div></div>
+<div style="height:48px"></div>
+</main>
+
+<footer class="strip">
+  <div class="wrap">
+    <div class="strip-in">
+      <img class="h4" src="assets/4humans.png" alt="4HUMANS" width="176" height="28">
+      <p class="legend">Trabajo académico desarrollado para la asignatura Semiología y Retórica Publicitaria – Universidad Icesi</p>
+      <img class="al" src="assets/alcaldia.png" alt="Alcaldía de Santiago de Cali" width="133" height="44">
+    </div>
+    <p class="tags">#AlSolNoSeLeDaPapaya &nbsp; #EnLaJuegaConTuPiel</p>
+  </div>
+</footer>
+
+<div class="modal" id="loginModal" hidden>
+  <div class="card modal-box" role="dialog" aria-modal="true" aria-labelledby="lgT">
+    <button type="button" class="x" id="lgX" aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    <p class="eyebrow">Tu cuenta</p>
+    <h2 class="h-sec" id="lgT" style="font-size:38px">Iniciar sesión</h2>
+    <div class="seg" role="group" aria-label="Elegí una opción">
+      <button type="button" id="segIn" aria-pressed="true" aria-selected="true">Entrar</button>
+      <button type="button" id="segUp" aria-pressed="false" aria-selected="false">Crear cuenta</button>
+    </div>
+    <form id="lgForm" novalidate>
+      <div class="fld" id="fName" hidden><label for="lgName">Nombre</label><input id="lgName" type="text" autocomplete="given-name" placeholder="Tu nombre"></div>
+      <div class="fld"><label for="lgMail">Correo</label><input id="lgMail" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com"></div>
+      <div class="fld"><label for="lgPass">Contraseña</label><input id="lgPass" type="password" autocomplete="current-password" placeholder="Tu contraseña"></div>
+      <p class="err" id="lgErr" role="alert" hidden></p>
+      <button class="btn teal" type="submit" id="lgGo">Entrar</button>
+    </form>
+    <button type="button" class="btn ghost" id="lgDemo">Probar con una cuenta de ejemplo</button>
+    <p class="fine">Prototipo de la campaña: no se envía ningún dato. Tu nombre y tu correo se guardan solo en este navegador. La contraseña no se guarda.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var mem={};
+  function lget(k){try{var v=localStorage.getItem(k);if(v!==null)return JSON.parse(v)}catch(e){}return mem[k]===undefined?null:mem[k]}
+  function lset(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function ldel(k){delete mem[k];try{localStorage.removeItem(k)}catch(e){}}
+  function pad(n){return ('0'+n).slice(-2)}
+  function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+  function daysAgo(n){var d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-n);return d}
+  function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+
+  var VIEWS=['inicio','informacion','mitos','datos','checklist','racha'];
+  var SECTIONS=['informacion','mitos','datos','checklist'];
+  var LABEL={inicio:'Inicio',informacion:'Información educativa',mitos:'Mitos y realidades',datos:'Datos impactantes y verificables',checklist:'Checklist de salida'};
+  var ICON={inicio:'i-home',informacion:'i-info',mitos:'i-help',datos:'i-chart',checklist:'i-list'};
+
+  /* ---------- Menús ---------- */
+  var btn=$('#menuBtn'),menu=$('#menu'),ico=$('#menuIco'),av=$('#avatar'),umenu=$('#umenu');
+  function setMenu(open){menu.hidden=!open;btn.setAttribute('aria-expanded',String(open));ico.setAttribute('href',open?'#i-close':'#i-menu');if(open)setUMenu(false)}
+  function setUMenu(open){umenu.hidden=!open;av.setAttribute('aria-expanded',String(open));if(open)setMenu(false)}
+  btn.addEventListener('click',function(e){e.stopPropagation();setMenu(menu.hidden)});
+  av.addEventListener('click',function(e){e.stopPropagation();setUMenu(umenu.hidden)});
+  document.addEventListener('click',function(e){
+    if(!menu.hidden&&!menu.contains(e.target))setMenu(false);
+    if(!umenu.hidden&&!umenu.contains(e.target))setUMenu(false);
+  });
+  menu.addEventListener('click',function(e){if(e.target.closest('a')){setMenu(false);window.scrollTo(0,0)}});
+  umenu.addEventListener('click',function(e){if(e.target.closest('a')){setUMenu(false);window.scrollTo(0,0)}});
+
+  /* ---------- Vistas por hash ---------- */
+  function route(){
+    var h=(location.hash||'').replace('#','');if(VIEWS.indexOf(h)<0)h='inicio';
+    $$('[data-view]').forEach(function(s){s.hidden=(s.dataset.view!==h)});
+    $$('#menu a').forEach(function(a){if(a.dataset.v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    var n=$('#next'),html='';
+    if(h==='inicio'){n.parentNode.hidden=true}else{
+      n.parentNode.hidden=false;
+      var others=SECTIONS.filter(function(v){return v!==h});
+      html='<p class="eyebrow">Seguí con</p><div class="row">'+others.map(function(v){return '<a href="#'+v+'"><svg width="18" height="18" aria-hidden="true"><use href="#'+ICON[v]+'"/></svg>'+LABEL[v]+'</a>'}).join('')+'<a href="#inicio"><svg width="18" height="18" aria-hidden="true"><use href="#i-home"/></svg>Inicio</a></div>';
+    }
+    n.innerHTML=html;
+    if(h==='racha')paintRacha();
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',route);
+
+  /* ---------- Información: pestañas ---------- */
+  var tabs=$$('#infoTabs .tab');
+  function selTab(t,focus){
+    tabs.forEach(function(x){
+      var on=(x===t);x.setAttribute('aria-selected',String(on));x.tabIndex=on?0:-1;
+      $('#'+x.getAttribute('aria-controls')).hidden=!on;
+    });
+    if(focus)t.focus();
+    t.scrollIntoView({block:'nearest',inline:'center'});
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){selTab(t,false)});
+    t.addEventListener('keydown',function(e){
+      var j=-1;if(e.key==='ArrowRight')j=(i+1)%tabs.length;if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;
+      if(e.key==='Home')j=0;if(e.key==='End')j=tabs.length-1;
+      if(j>-1){e.preventDefault();selTab(tabs[j],true)}
+    });
+  });
+
+  /* ---------- Mitos y realidades ---------- */
+  var CARDS=[
+    {q:'Si está nublado, no necesito protegerme del sol.',a:'mito',exp:'La radiación UV puede atravesar las nubes, por lo que un día nublado no elimina la necesidad de fotoprotección.',sol:'Las nubes no me tapan, mijo.'},
+    {q:'Solo necesito bloqueador cuando voy a piscina o playa.',a:'mito',exp:'También hay exposición solar al desplazarte, al hacer deporte y en otros momentos de todos los días.',sol:'Yo salgo todos los días. ¿Y tu bloqueador?'},
+    {q:'Si no me quemo, el sol no afecta mi piel.',a:'mito',exp:'Algunos efectos de la radiación UV pueden acumularse sin provocar una quemadura visible.',sol:'Que no lo veas no significa que no pase.'},
+    {q:'La ropa y la sombra también ayudan a protegerme del sol.',a:'real',exp:'La protección solar incluye varias medidas que se complementan, no únicamente el bloqueador.',sol:'Pilas: sombra, ropa, gafas y bloqueador.'},
+    {q:'Sentir calor es la única forma de saber si hay radiación UV.',a:'mito',exp:'La sensación térmica y la intensidad de la radiación UV no son equivalentes.',sol:'Pilas, que el sol no siempre avisa.'},
+    {q:'Si me eché bloqueador en la mañana, ya quedé protegido todo el día.',a:'mito',exp:'Aplicarlo una vez no garantiza protección durante toda la jornada. En exposiciones prolongadas, reaplicá siguiendo las indicaciones del producto.',sol:'Pilas, que a las 10 ya estoy en la cancha.'}
+  ];
+  var gi=0,score=0,locked=false;
+  function renderCard(){
+    var c=CARDS[gi];
+    $('#gN').textContent=gi+1;$('#gQ').textContent=c.q;$('#gBar').style.width=(gi/CARDS.length*100)+'%';
+    $('#gRes').hidden=true;$('#gBtns').hidden=false;locked=false;
+    $('#gBubble').textContent='Pilas. Decidí vos.';
+  }
+  function answer(a){
+    if(locked)return;locked=true;
+    var c=CARDS[gi],ok=(a===c.a);if(ok)score++;
+    var tag=$('#gTag');tag.className='g-tag'+(ok?' ok':'');
+    tag.textContent=(ok?'¡Bien pilas! ':'Casi. ')+'Era '+(c.a==='mito'?'mito.':'realidad.');
+    $('#gExp').textContent=c.exp;$('#gSol').textContent='“'+c.sol+'”';
+    $('#gBubble').textContent=ok?'¡De una!':'Tranqui, así se aprende.';
+    $('#gBtns').hidden=true;$('#gRes').hidden=false;
+    $('#gBar').style.width=((gi+1)/CARDS.length*100)+'%';
+    $('#gNext').textContent=(gi===CARDS.length-1)?'Ver mi resultado':'Siguiente';
+    $('#gNext').focus({preventScroll:true});
+  }
+  function finish(){
+    $('#gPlay').hidden=true;$('#gEnd').hidden=false;$('#gScore').textContent=score;
+    if(score===CARDS.length){$('#gEndT').textContent='¡Estás en la juega!';$('#gEndP').textContent='Las seis, de una. Ahora llevá la regla a tu salida: llaves, celular, bloqueador.';$('#gBubble').textContent='¡Eso es estar en la juega!'}
+    else{$('#gEndT').textContent='Ya sabés más que hace un rato';$('#gEndP').textContent='Cada mito que descubrís es una papaya menos. Podés jugar otra vez o revisar tu lista de salida.';$('#gBubble').textContent='Pilas, ya vas en la juega.'}
+  }
+  $('#gBtns').addEventListener('click',function(e){var b=e.target.closest('button');if(b)answer(b.dataset.a)});
+  $('#gNext').addEventListener('click',function(){if(gi===CARDS.length-1){finish()}else{gi++;renderCard()}});
+  $('#gAgain').addEventListener('click',function(){gi=0;score=0;$('#gEnd').hidden=true;$('#gPlay').hidden=false;renderCard()});
+  renderCard();
+
+  /* ---------- Checklist de salida (se recuerda el día en este navegador) ---------- */
+  var st={};
+  var today0=iso(new Date()),SK='ssnp-checklist';
+  var raw0=lget(SK);if(raw0&&raw0.d===today0)st=raw0.s||{};
+  function saveCl(){lset(SK,{d:today0,s:st})}
+  function paintCl(){
+    syncPts();
+    $$('.chk').forEach(function(b){b.setAttribute('aria-pressed',String(!!st[b.dataset.k]))});
+    var n=['llaves','celular','bloqueador'].filter(function(k){return st[k]}).length;
+    $('#clBar').style.width=(n/3*100)+'%';
+    var s=$('#clStatus'),bub=$('#clBubble'),done=$('#clDone');
+    done.hidden=(n!==3);
+    if(n===3){s.textContent='';bub.textContent='Llaves, celular, bloqueador… ahora sí, en la juega.'}
+    else{
+      s.textContent='Tenés '+n+' de 3.';
+      if(n===0)bub.textContent='¡Ey, ve! ¿Me vas a dar papaya?';
+      else if(!st.bloqueador)bub.textContent='Yo salgo todos los días. ¿Y tu bloqueador?';
+      else bub.textContent='Bloqueador listo. Falta '+(!st.llaves&&!st.celular?'lo demás':(!st.llaves?'las llaves':'el celular'))+', ve.';
+    }
+    paintPts();
+  }
+  $$('.chk').forEach(function(b){b.addEventListener('click',function(){st[b.dataset.k]=!st[b.dataset.k];saveCl();paintCl()})});
+  $('#clReset').addEventListener('click',function(){st={};saveCl();paintCl()});
+  paintCl();
+
+  /* ---------- Puntos del checklist (1 punto por día con bloqueador; 30 puntos = 1 mes) ---------- */
+  var pts=null,DOW=['D','L','M','M','J','V','S'];
+  function pkey(){return 'ssnp-pts-'+(user?user.email:'guest')}
+  function loadPts(){
+    var d=lget(pkey());
+    if(!d){
+      d={days:{}};
+      if(user&&user.demo){for(var i=1;i<=14;i++)d.days[iso(daysAgo(i))]={c:1,b:(i===4||i===9)?0:1}}
+      lset(pkey(),d);
+    }
+    pts=d;syncPts();
+  }
+  function syncPts(){
+    if(!pts)return;
+    var k=iso(new Date()),any=!!(st.llaves||st.celular||st.bloqueador);
+    if(any)pts.days[k]={c:1,b:st.bloqueador?1:0};else delete pts.days[k];
+    lset(pkey(),pts);
+  }
+  function paintPts(){
+    if(!pts)return;
+    var rev=0,b=0,k;
+    for(k in pts.days){rev++;if(pts.days[k].b)b++}
+    var months=Math.floor(b/30),cyc=(b>0&&b%30===0)?30:b%30,left=30-cyc;
+    $('#pN').textContent=cyc;$('#pBar').style.width=(cyc/30*100)+'%';
+    $('#pRev').textContent=rev;$('#pB').textContent=b;
+    $('#pLeft').textContent=left===0?'Llegaste a los 30 puntos.':'Te '+(left===1?'falta 1 punto':'faltan '+left+' puntos')+' para tu beneficio sorpresa.';
+    $('#pToday').textContent=st.bloqueador?'Hoy sumaste tu punto. Eso es estar en la juega.':((st.llaves||st.celular)?'Hoy todavía te falta marcar el bloqueador para sumar tu punto.':'Hoy todavía no revisás tu lista.');
+    var w='';
+    for(var i=6;i>=0;i--){
+      var d=daysAgo(i),e=pts.days[iso(d)],cls=e?(e.b?'on':'half'):'';
+      w+='<div><i class="'+cls+'" aria-label="'+(e?(e.b?'Con bloqueador':'Lista revisada sin bloqueador'):'Sin registro')+'">'+(e&&e.b?'<svg aria-hidden="true"><use href="#i-check"/></svg>':'')+'</i>'+DOW[d.getDay()]+'</div>';
+    }
+    $('#pWeek').innerHTML=w;
+    var win=$('#pWin');
+    win.hidden=(months<1);
+    if(months>=1)$('#pWinTxt').textContent='Ganaste un beneficio sorpresa de una alianza de la Alcaldía. Beneficios sorpresa ganados: '+months+'.';
+  }
+  $('#pReset').addEventListener('click',function(){ldel(pkey());loadPts();paintCl()});
+
+  /* ---------- Cuenta (demostración, todo queda en este navegador) ---------- */
+  var user=lget('ssnp-user'),data=null,pending=null;
+  function dkey(){return 'ssnp-racha-'+user.email}
+  function loadData(){
+    if(!user){data=null;return}
+    var d=lget(dkey());
+    if(!d){
+      d={days:{},friends:[]};
+      if(user.demo){
+        for(var i=1;i<=9;i++)d.days[iso(daysAgo(i))]=true;
+        d.friends=[
+          {n:'Dani',week:[1,1,1,1,1,1,1],s:12},
+          {n:'Sebas',week:[1,1,1,1,1,1,0],s:6},
+          {n:'Camilo',week:[0,0,0,1,1,1,1],s:4}
+        ];
+      }
+      lset(dkey(),d);
+    }
+    data=d;
+  }
+  function saveData(){if(user&&data)lset(dkey(),data)}
+  function paintAuth(){
+    var kick=$('#heroKick'),txt=$('#heroLoginTxt');
+    if(user){
+      kick.textContent='Hola, '+user.name+'. ¿Estás en la juega?';
+      txt.textContent='Ver mi racha';
+      av.hidden=false;av.textContent=user.name.charAt(0).toUpperCase();
+      $('#uName').textContent='Hola, '+user.name;$('#uMail').textContent=user.email;
+    }else{
+      kick.textContent='¿Estás en la juega?';
+      txt.textContent='Iniciar sesión';
+      av.hidden=true;setUMenu(false);
+    }
+    $('#rGate').hidden=!!user;$('#rApp').hidden=!user;
+  }
+
+  /* Modal de inicio de sesión */
+  var mode='in',opener=null,modal=$('#loginModal');
+  function setMode(m){
+    mode=m;
+    $('#segIn').setAttribute('aria-selected',String(m==='in'));$('#segIn').setAttribute('aria-pressed',String(m==='in'));
+    $('#segUp').setAttribute('aria-selected',String(m==='up'));$('#segUp').setAttribute('aria-pressed',String(m==='up'));
+    $('#fName').hidden=(m!=='up');
+    $('#lgGo').textContent=m==='in'?'Entrar':'Crear mi cuenta';
+    $('#lgT').textContent=m==='in'?'Iniciar sesión':'Crear cuenta';
+    $('#lgPass').setAttribute('autocomplete',m==='in'?'current-password':'new-password');
+    $('#lgErr').hidden=true;
+  }
+  function openLogin(){
+    opener=document.activeElement;modal.hidden=false;document.body.classList.add('modal-open');
+    setMode('in');setMenu(false);setUMenu(false);
+    setTimeout(function(){$('#lgMail').focus()},30);
+  }
+  function closeLogin(){
+    modal.hidden=true;document.body.classList.remove('modal-open');
+    $('#lgForm').reset();$('#lgErr').hidden=true;
+    if(opener&&opener.focus&&document.contains(opener))opener.focus();
+  }
+  function err(t){var e=$('#lgErr');e.textContent=t;e.hidden=false}
+  function nameFromMail(m){var l=(m.split('@')[0].split(/[._\-0-9]/)[0])||'Parcero';return l.charAt(0).toUpperCase()+l.slice(1)}
+  function login(u){
+    user=u;lset('ssnp-user',u);loadData();loadPts();paintCl();pending=null;
+    modal.hidden=true;document.body.classList.remove('modal-open');$('#lgForm').reset();
+    paintAuth();
+    if(location.hash==='#racha'){paintRacha();window.scrollTo(0,0)}else{location.hash='#racha'}
+  }
+  function logout(){user=null;data=null;pending=null;ldel('ssnp-user');paintAuth();loadPts();paintCl()}
+  $('#heroLogin').addEventListener('click',function(){if(user){location.hash='#racha'}else openLogin()});
+  $('#gateLogin').addEventListener('click',openLogin);
+  $('#lgX').addEventListener('click',closeLogin);
+  modal.addEventListener('click',function(e){if(e.target===modal)closeLogin()});
+  $('#segIn').addEventListener('click',function(){setMode('in')});
+  $('#segUp').addEventListener('click',function(){setMode('up')});
+  $('#lgDemo').addEventListener('click',function(){login({name:'Mateo',email:'mateo@ejemplo.co',demo:true})});
+  $('#lgForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var mail=$('#lgMail').value.trim().toLowerCase(),pass=$('#lgPass').value,nm=$('#lgName').value.trim();
+    if(mode==='up'&&!nm){err('Escribí tu nombre.');$('#lgName').focus();return}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){err('Escribí un correo válido, por ejemplo tucorreo@ejemplo.com.');$('#lgMail').focus();return}
+    if(!pass){err('Escribí tu contraseña.');$('#lgPass').focus();return}
+    var prev=lget('ssnp-acct-'+mail),name=nm||(prev&&prev.name)||nameFromMail(mail);
+    lset('ssnp-acct-'+mail,{name:name});
+    login({name:name,email:mail,demo:(mail==='mateo@ejemplo.co')});
+  });
+  $('#logout').addEventListener('click',function(){logout()});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      if(!modal.hidden){closeLogin();return}
+      if(!menu.hidden){setMenu(false);btn.focus();return}
+      if(!umenu.hidden){setUMenu(false);av.focus()}
+    }
+    if(e.key==='Tab'&&!modal.hidden){
+      var f=$$('button,input,a[href]',modal).filter(function(x){return !x.disabled&&x.offsetParent!==null});
+      if(!f.length)return;var a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}
+      else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}
+    }
+  });
+
+  /* ---------- Racha ---------- */
+  var MS=[
+    {d:15,l:'15 días',b:'Suscripción a Win+',i:'i-tv'},
+    {d:30,l:'1 mes',b:'Descuentos en canchas sintéticas',i:'i-ball'},
+    {d:60,l:'2 meses',b:'Descuentos en tiendas',i:'i-tag'},
+    {d:90,l:'3 meses',b:'Descuentos en restaurantes',i:'i-fork'}
+  ];
+  function streakOf(days){
+    var n=0,d=daysAgo(0);if(!days[iso(d)])d.setDate(d.getDate()-1);
+    while(days[iso(d)]){n++;d.setDate(d.getDate()-1)}
+    return n;
+  }
+  function nextMs(cur){
+    for(var i=0;i<MS.length;i++){if(MS[i].d>cur)return {m:MS[i],prev:i?MS[i-1].d:0}}
+    var nd=(Math.floor(cur/30)+1)*30;
+    return {m:{d:nd,l:(nd/30)+' meses',b:'Un beneficio nuevo de las alianzas',i:'i-gift'},prev:nd-30};
+  }
+  function paintRacha(){
+    if(!user||!data)return;
+    var tkey=iso(new Date()),done=!!data.days[tkey],cur=streakOf(data.days);
+    /* hoy */
+    var dn=$('#rDone');
+    if(done){
+      var th=data.days[tkey];
+      dn.innerHTML='<div class="done"><b>Hoy ya cumpliste, ve.</b><span>Tu foto del día está registrada. Volvé mañana para sumar otro día.</span></div>'+(typeof th==='string'?'<div class="prev"><img src="'+th+'" alt="Tu foto de hoy"></div>':'');
+      dn.style.display='grid';dn.style.gap='14px';
+    }else dn.style.display='';
+    dn.hidden=!done;$('#rUpload').hidden=done;
+    /* racha */
+    $('#rNum').textContent=cur;
+    $('#rMsg').textContent=cur===0?'Todavía no empezás. Tu primera foto es el día 1.':(done?'Hoy ya sumaste. Eso es estar en la juega.':'Hoy falta tu foto para seguir la racha.');
+    var nx=nextMs(cur),span=nx.m.d-nx.prev,left=nx.m.d-cur;
+    $('#rBar').style.width=Math.max(0,Math.min(100,(cur-nx.prev)/span*100))+'%';
+    $('#rNext').textContent='Te '+(left===1?'falta 1 día':'faltan '+left+' días')+' para '+nx.m.l+': '+nx.m.b+'.';
+    var hit=MS.concat([{d:Infinity,l:'Cada mes',b:'Un beneficio nuevo de las alianzas',i:'i-gift'}]);
+    var nextFound=false;
+    $('#rLadder').innerHTML=hit.map(function(m){
+      var reached=cur>=m.d,cls='';
+      if(reached)cls='done';else if(!nextFound&&m.d!==Infinity&&m.d===nx.m.d){cls='next';nextFound=true}
+      var stt=reached?'Logrado':(cls==='next'?'Próximo':(m.d===Infinity?'Después':'Pendiente'));
+      return '<li class="'+cls+'"><span class="ic"><svg aria-hidden="true"><use href="#'+m.i+'"/></svg></span><span><b>'+m.l+'</b>'+esc(m.b)+'</span><span class="st">'+stt+'</span></li>';
+    }).join('');
+    /* 14 días */
+    var h='';
+    for(var i=13;i>=0;i--){
+      var d=daysAgo(i),k=iso(d),v=data.days[k],t=(i===0);
+      if(v){h+='<div class="dtile on'+(t?' today':'')+'" aria-label="'+d.getDate()+': cumplido">'+(typeof v==='string'?'<img src="'+v+'" alt="">':'<svg aria-hidden="true"><use href="#i-check"/></svg>')+'<span class="dn">'+d.getDate()+'</span></div>'}
+      else{h+='<div class="dtile'+(t?' today':'')+'" aria-label="'+d.getDate()+': sin foto">'+d.getDate()+'</div>'}
+    }
+    $('#rDays').innerHTML=h;
+    /* amigos */
+    var fr=data.friends||[];
+    $('#rFriends').innerHTML=fr.length?fr.map(function(f){
+      var nm=esc(f.n),ini=esc(String(f.n).trim().charAt(0).toUpperCase()||'?');
+      if(f.pending)return '<div class="friend"><span class="av">'+ini+'</span><div><b>'+nm+'</b><small>Invitación enviada (demostración)</small></div><span></span></div>';
+      var wk=(f.week||[]).map(function(x){return '<i class="'+(x?'on':'')+'"></i>'}).join('');
+      var last=(f.week||[])[6];
+      return '<div class="friend"><span class="av">'+ini+'</span><div><b>'+nm+'</b><small>'+(last?'Hoy ya subió su foto':'Hoy todavía no sube su foto')+'</small><div class="wk" aria-label="Últimos 7 días">'+wk+'</div></div><span class="fs"><svg aria-hidden="true"><use href="#i-flame"/></svg>'+f.s+'</span></div>';
+    }).join(''):'<p>Todavía no agregaste a nadie. Sumá a tus parceros para ver quién va en racha.</p>';
+    $('#fNote').textContent=(user.demo?'Los amigos y su avance son ejemplos de la demostración.':'Las invitaciones son una demostración: no se envían.');
+  }
+  function toThumb(file,cb){
+    var fr=new FileReader();
+    fr.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var s=300,r=Math.min(s/im.width,s/im.height,1),c=document.createElement('canvas');
+        c.width=Math.max(1,Math.round(im.width*r));c.height=Math.max(1,Math.round(im.height*r));
+        try{c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.72))}catch(e){cb(null)}
+      };
+      im.onerror=function(){cb(null)};im.src=fr.result;
+    };
+    fr.onerror=function(){cb(null)};fr.readAsDataURL(file);
+  }
+  $('#photo').addEventListener('change',function(){
+    var f=this.files&&this.files[0];if(!f)return;
+    $('#rErr').hidden=true;
+    toThumb(f,function(t){
+      if(!t){pending=null;$('#prev').innerHTML='';$('#send').disabled=true;var e=$('#rErr');e.textContent='No pudimos leer esa foto. Probá con otra.';e.hidden=false;return}
+      pending=t;$('#prev').innerHTML='<img src="'+t+'" alt="Vista previa de tu foto del día">';$('#send').disabled=false;
+    });
+  });
+  $('#send').addEventListener('click',function(){
+    if(!user||!data)return;
+    data.days[iso(new Date())]=pending||true;saveData();pending=null;
+    $('#prev').innerHTML='';$('#photo').value='';this.disabled=true;
+    paintRacha();
+  });
+  $('#addF').addEventListener('submit',function(e){
+    e.preventDefault();var i=$('#fname'),v=i.value.trim();if(!v||!data)return;
+    data.friends=data.friends||[];data.friends.push({n:v.slice(0,40),pending:true});saveData();i.value='';paintRacha();
+  });
+  $('#rReset').addEventListener('click',function(){
+    if(!user)return;ldel(dkey());pending=null;$('#prev').innerHTML='';$('#send').disabled=true;loadData();paintRacha();
+  });
+
+  loadData();loadPts();paintCl();paintAuth();route();
+})();
+</script>
+</body>
+</html>
