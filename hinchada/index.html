@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Hinchada de Solancho · Maqueta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chewy&family=Fredoka:wght@500;600&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+:root{--orange:#FF761B;--yellow:#FFB21F;--cream:#FFF2C4;--brown:#642606;--teal:#089A9A;
+--display:'Chewy','Arial Rounded MT Bold',ui-rounded,system-ui,sans-serif;--sig:'Fredoka',ui-rounded,system-ui,sans-serif;--body:'Nunito Sans','Segoe UI',system-ui,sans-serif;
+--bg:#FFF8E1;--card:#FFFDF4;--soft:#FFF2C4;--ink:#642606;--muted:#855431;--line:#EBCF8B;--accent:#B84600}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+h1,h2,h3,p,ul{margin:0}ul{padding:0;list-style:none}img{max-width:100%;display:block}button{font:inherit;color:inherit}a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--cream);border-bottom:3px solid var(--brown);padding-top:env(safe-area-inset-top,0px)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:10px}
+.top img{width:42px;height:42px}
+.top b{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.05}
+.top a.back{margin-left:auto;font-family:var(--sig);font-weight:600;font-size:15px;text-decoration:none;border:3px solid var(--brown);border-radius:99px;padding:6px 14px;background:#fff}
+.hero{background:var(--orange) url(../assets/ondas.jpg) center/cover;border-bottom:3px solid var(--brown)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:20px;align-items:center;padding-block:34px 30px}
+.pill{display:inline-block;font-family:var(--sig);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;background:var(--teal);color:#fff;border:3px solid var(--brown);border-radius:99px;padding:5px 14px 4px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(44px,8vw,86px);line-height:.95;color:#fff;margin-top:14px;text-shadow:3px 3px 0 var(--brown),-3px 3px 0 var(--brown),3px -3px 0 var(--brown),-3px -3px 0 var(--brown),0 5px 0 var(--brown),5px 5px 0 var(--brown)}
+.hero p.l{margin-top:20px;font-size:19px;font-weight:700;max-width:34ch;background:var(--cream);border:3px solid var(--brown);border-radius:16px;padding:12px 16px;box-shadow:5px 5px 0 var(--brown)}
+.hero img{justify-self:center;width:min(300px,100%)}
+section{padding-block:38px}
+.eyebrow{font-family:var(--sig);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,44px);line-height:1.05;margin-top:4px}
+.lede{margin-top:10px;max-width:62ch;color:var(--muted);font-size:18px}
+.dates{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.dates button{cursor:pointer;font-family:var(--display);font-size:19px;padding:8px 16px 7px;border-radius:99px;border:3px solid var(--brown);background:var(--card);box-shadow:3px 3px 0 var(--brown)}
+.dates button[aria-pressed=true]{background:var(--orange);color:#fff}
+.dnote{margin-top:12px;font-weight:700}
+.dnote span{color:var(--accent)}
+.map{margin-top:18px;border:3px solid var(--brown);border-radius:24px;background:#EBD9A8;box-shadow:6px 6px 0 var(--brown);overflow:hidden}
+.map svg{display:block;width:100%;height:auto}
+.pin{cursor:pointer}
+.pin circle{fill:var(--teal);stroke:var(--brown);stroke-width:3}
+.pin text{fill:#fff;font-family:var(--display);font-size:22px;text-anchor:middle}
+.pin.on circle{fill:var(--orange)}
+.pin:focus-visible{outline:none}
+.pin:focus-visible circle{stroke:#000;stroke-width:5}
+.pin .halo{fill:none;stroke:var(--orange);stroke-width:3;opacity:0}
+.pin.on .halo{opacity:1}
+.grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:22px;margin-top:22px;align-items:start}
+.stl{display:grid;gap:8px}
+.stl button{display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;background:var(--card);border:3px solid var(--brown);border-radius:16px;padding:9px 14px;font-family:var(--display);font-size:20px;line-height:1.1}
+.stl button i{font-style:normal;flex:none;width:34px;height:34px;border-radius:50%;background:var(--teal);color:#fff;border:3px solid var(--brown);display:grid;place-items:center;font-size:18px}
+.stl button[aria-pressed=true]{background:var(--soft);box-shadow:4px 4px 0 var(--brown)}
+.stl button[aria-pressed=true] i{background:var(--orange)}
+.card{background:var(--card);border:3px solid var(--brown);border-radius:22px;padding:22px;box-shadow:6px 6px 0 var(--brown)}
+.card h3{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.05}
+.card .tag{font-family:var(--sig);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.card p{margin-top:10px}
+.say{margin-top:14px;background:var(--cream);border:3px solid var(--brown);border-radius:16px 16px 16px 4px;padding:10px 14px;font-family:var(--display);font-size:22px;line-height:1.15}
+.vis{margin-top:16px}
+.board{background:#1b0c05;color:#FFB21F;border:4px solid var(--brown);border-radius:14px;padding:14px 16px;font-family:var(--sig);font-weight:600}
+.board .r{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:20px;padding:4px 0;border-bottom:1px dashed #5b3a1b}
+.board .r:last-child{border:0}
+.board b{font-family:var(--display);font-weight:400;font-size:30px;color:#fff}
+.board small{display:block;font-size:12px;color:#d9b777;font-weight:500;letter-spacing:.04em}
+.tc{width:110px;height:150px;border-radius:12px;background:var(--orange);border:4px solid var(--brown);transform:rotate(-7deg);display:grid;place-items:center;text-align:center;font-family:var(--display);font-size:22px;color:#fff;line-height:1;box-shadow:4px 4px 0 var(--brown)}
+.vrow{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.chk3{display:flex;gap:8px;flex-wrap:wrap}.chk3 span{background:var(--good-bg,#DDF3E6);border:3px solid #1B7F50;color:#1B7F50;border-radius:12px;padding:6px 12px;font-family:var(--display);font-size:19px}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px}
+.flow li{background:var(--card);border:3px solid var(--brown);border-radius:16px;padding:12px;font-weight:700;font-size:15px;line-height:1.3;position:relative}
+.flow li b{display:block;font-family:var(--display);font-weight:400;font-size:20px;color:var(--accent)}
+.strip{background:#fff;color:var(--brown);border-top:3px solid var(--brown);padding-block:16px calc(14px + env(safe-area-inset-bottom,0px))}
+.strip-in{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center}
+.strip img.h4{height:28px;width:auto}.strip img.al{height:44px;width:auto}
+.strip .legend{font-size:13px;line-height:1.35;text-align:center;font-weight:600}
+.strip .tags{margin-top:10px;text-align:center;font-family:var(--sig);font-weight:600;font-size:14px;color:var(--accent)}
+.note{margin-top:14px;font-size:14px;color:var(--muted)}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.hero img{width:200px;order:-1}.grid{grid-template-columns:1fr}.strip-in{grid-template-columns:1fr;justify-items:center}.top b{font-size:17px}}
+@media(prefers-reduced-motion:no-preference){.pin .halo{animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.18)}}.pin .halo{transform-box:fill-box;transform-origin:center}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <img src="../assets/solancho-cara.png" alt="" width="42" height="42">
+  <b>Al sol no se le da papaya</b>
+  <a class="back" href="../">Ir a la página</a>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="pill">Maqueta de activación</span>
+    <h1>La Hinchada<br>de Solancho</h1>
+    <p class="l">Un fin de semana al mes, una cancha distinta. Acá el bloqueador entra al reglamento.</p>
+  </div>
+  <img src="../assets/solancho.png" alt="Solancho, el personaje de la campaña" width="300" height="322">
+</div></div>
+
+<main>
+<section><div class="wrap">
+  <p class="eyebrow">Así se vería en la vida real</p>
+  <h2>El plano de la cancha</h2>
+  <p class="lede">Elegí la fecha para cambiar el deporte y tocá cada número para ver qué pasa en esa estación.</p>
+  <div class="dates" id="dates" role="group" aria-label="Fecha de la activación"></div>
+  <p class="dnote" id="dnote"></p>
+  <div class="map"><svg id="svg" viewBox="0 0 1000 620" role="img" aria-label="Plano de la activación vista desde arriba con seis estaciones numeradas"></svg></div>
+  <p class="note">Maqueta ilustrativa vista desde arriba. Las medidas, las marcas y los aliados son una propuesta por confirmar con la Alcaldía.</p>
+  <div class="grid">
+    <div class="stl" id="stl"></div>
+    <article class="card" id="card" aria-live="polite"></article>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="wrap">
+  <p class="eyebrow">El recorrido de un hincha</p>
+  <h2>De la entrada al QR</h2>
+  <ol class="flow" style="padding:0;list-style:none">
+    <li><b>1. Entra</b>El árbitro revisa llaves, celular y bloqueador.</li>
+    <li><b>2. Se diagnostica</b>Responde el papayómetro en 5 preguntas.</li>
+    <li><b>3. Juega</b>En la pausa suena el pito y todos reaplican.</li>
+    <li><b>4. Suma</b>Su equipo gana puntos en el marcador.</li>
+    <li><b>5. Sigue</b>Escanea el QR: lista de salida, racha y WhatsApp si quiere.</li>
+  </ol>
+</div></section>
+</main>
+
+<footer class="strip"><div class="wrap">
+  <div class="strip-in">
+    <img class="h4" src="../assets/4humans.png" alt="4HUMANS" width="176" height="28">
+    <p class="legend">Trabajo académico desarrollado para la asignatura Semiología y Retórica Publicitaria – Universidad Icesi</p>
+    <img class="al" src="../assets/alcaldia.png" alt="Alcaldía de Santiago de Cali" width="133" height="44">
+  </div>
+  <p class="tags">#AlSolNoSeLeDaPapaya &nbsp; #EnLaJuegaConTuPiel</p>
+</div></footer>
+
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg';
+var FECHAS=[
+ {n:'Fecha 1',d:'Fútbol 5',c:'cancha sintética',r:'La Pausa Solancho al medio tiempo: "Pilas, que a las 10 ya estoy en la cancha".'},
+ {n:'Fecha 2',d:'Baloncesto',c:'cancha de barrio',r:'Reaplicación en el tiempo muerto y concurso de tiros libres de Solancho.'},
+ {n:'Fecha 3',d:'Voleibol',c:'cancha de arena',r:'Cada cambio de set es una reaplicación obligatoria.'},
+ {n:'Fecha 4',d:'Tenis o pádel',c:'cancha de pádel',r:'Se reaplica en cada cambio de lado, que ya es una pausa natural.'},
+ {n:'Fecha 5',d:'Skate o patinaje',c:'pista',r:'Sesión libre con retos de trucos y zona de sombra.'},
+ {n:'Gran final',d:'Multideporte',c:'cancha principal',r:'Los mejores equipos de cada fecha se enfrentan; se premia a quien llegó a más fechas.'}
+];
+var EST=[
+ {id:1,t:'Chequeo de salida',x:53,y:262,tag:'La entrada',p:'Un árbitro revisa "llaves, celular, bloqueador" antes de dejar entrar al equipo. Quien pasa recibe una manilla de Hincha de Solancho.',s:'Llaves, celular, bloqueador.',v:'chk'},
+ {id:2,t:'Papayómetro de cancha',x:106,y:432,tag:'Autodiagnóstico',p:'Una pantalla con 5 preguntas rápidas, la misma dinámica del papayómetro de la activación en Icesi, para descubrir cuánta papaya da cada uno.',s:'¿Cuánta papaya das sin darte cuenta?'},
+ {id:3,t:'La Pausa Solancho',x:556,y:246,tag:'A mitad del partido',p:'Suena un pito y Solancho entra a la cancha. Los dos equipos reaplican en 60 segundos en el puesto de NUDE, mientras la hinchada grita el lema. Es la pausa de hidratación, ahora también de reaplicación.',s:'Pilas, que a las 10 ya estoy en la cancha.'},
+ {id:4,t:'Tarjeta Papaya',x:500,y:70,tag:'El árbitro',p:'Una tarjeta naranja, en tono de chiste, para quien juega sin bloqueador. No es sanción: pasa por el puesto, se aplica y vuelve a la cancha.',s:'Pasá por el puesto y volvé a la juega.',v:'card'},
+ {id:5,t:'Marcador de la hinchada',x:783,y:62,tag:'Puntos por equipo',p:'Un tablero aparte suma puntos por entrar con bloqueador, reaplicar en la pausa y acertar en el papayómetro. El mejor equipo se lleva el trofeo de la hinchada.',s:'Acá gana el parche que se cuida.',v:'board'},
+ {id:6,t:'Zona parche',x:776,y:326,tag:'Sombra y comunidad',p:'Carpas con sombra e hidratación, foto con Solancho para Instagram y un QR que lleva a la página web, a la lista de salida y a la racha.',s:'Al sol no se le da papaya. ¡En la juega con tu piel!'}
+];
+var cur=0,sel=3;
+function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function g(p,t){return el('g',t?{transform:t}:{},p)}
+var S=document.getElementById('svg');
+
+function court(p,i){
+ var L={stroke:'#fff','stroke-width':3,fill:'none','stroke-linecap':'round'};
+ if(i===0||i===5){
+  el('rect',{x:240,y:130,width:520,height:320,rx:6,fill:'#4FB36F',stroke:'#642606','stroke-width':4},p);
+  for(var k=0;k<8;k++)el('rect',{x:240+k*65,y:130,width:65,height:320,fill:k%2?'rgba(255,255,255,.07)':'transparent'},p);
+  el('rect',Object.assign({x:254,y:144,width:492,height:292},L),p);
+  el('line',Object.assign({x1:500,y1:144,x2:500,y2:436},L),p);
+  el('circle',Object.assign({cx:500,cy:290,r:46},L),p);
+  el('rect',Object.assign({x:254,y:230,width:64,height:120},L),p);el('rect',Object.assign({x:682,y:230,width:64,height:120},L),p);
+  el('rect',{x:232,y:262,width:22,height:56,fill:'#fff',stroke:'#642606','stroke-width':3},p);el('rect',{x:746,y:262,width:22,height:56,fill:'#fff',stroke:'#642606','stroke-width':3},p);
+ }else if(i===1){
+  el('rect',{x:240,y:130,width:520,height:320,rx:6,fill:'#E39A4B',stroke:'#642606','stroke-width':4},p);
+  el('rect',Object.assign({x:254,y:144,width:492,height:292},L),p);
+  el('line',Object.assign({x1:500,y1:144,x2:500,y2:436},L),p);
+  el('circle',Object.assign({cx:500,cy:290,r:42},L),p);
+  el('rect',Object.assign({x:254,y:240,width:110,height:100},L),p);el('rect',Object.assign({x:636,y:240,width:110,height:100},L),p);
+  el('path',Object.assign({d:'M254 190 H320 A112 112 0 0 1 320 390 H254'},L),p);el('path',Object.assign({d:'M746 190 H680 A112 112 0 0 0 680 390 H746'},L),p);
+  el('circle',{cx:272,cy:290,r:9,fill:'#FF761B',stroke:'#642606','stroke-width':3},p);el('circle',{cx:728,cy:290,r:9,fill:'#FF761B',stroke:'#642606','stroke-width':3},p);
+ }else if(i===2){
+  el('rect',{x:240,y:130,width:520,height:320,rx:6,fill:'#F0D58A',stroke:'#642606','stroke-width':4},p);
+  el('rect',{x:300,y:170,width:400,height:240,fill:'#F6E3A8',stroke:'#fff','stroke-width':4},p);
+  el('line',Object.assign({x1:433,y1:170,x2:433,y2:410},L),p);el('line',Object.assign({x1:567,y1:170,x2:567,y2:410},L),p);
+  el('line',{x1:500,y1:150,x2:500,y2:430,stroke:'#642606','stroke-width':6,'stroke-dasharray':'8 5'},p);
+  el('circle',{cx:500,cy:150,r:6,fill:'#642606'},p);el('circle',{cx:500,cy:430,r:6,fill:'#642606'},p);
+ }else if(i===3){
+  el('rect',{x:240,y:130,width:520,height:320,rx:6,fill:'#2F86A6',stroke:'#642606','stroke-width':4},p);
+  el('rect',{x:280,y:160,width:440,height:260,fill:'none',stroke:'#BFE4EF','stroke-width':6},p);
+  el('line',Object.assign({x1:500,y1:160,x2:500,y2:420},L),p);
+  el('line',Object.assign({x1:400,y1:160,x2:400,y2:420},L),p);el('line',Object.assign({x1:600,y1:160,x2:600,y2:420},L),p);
+  el('line',Object.assign({x1:400,y1:290,x2:600,y2:290},L),p);
+ }else{
+  el('rect',{x:240,y:130,width:520,height:320,rx:6,fill:'#CBC3B6',stroke:'#642606','stroke-width':4},p);
+  el('ellipse',{cx:370,cy:300,rx:96,ry:62,fill:'#A9A194',stroke:'#642606','stroke-width':4},p);el('ellipse',{cx:370,cy:300,rx:64,ry:38,fill:'#8E867A',stroke:'#642606','stroke-width':3},p);
+  el('rect',{x:540,y:160,width:170,height:50,rx:6,fill:'#B8B0A2',stroke:'#642606','stroke-width':3},p);
+  el('rect',{x:540,y:380,width:170,height:50,rx:6,fill:'#B8B0A2',stroke:'#642606','stroke-width':3},p);
+  el('line',{x1:540,y1:290,x2:700,y2:290,stroke:'#642606','stroke-width':6,'stroke-linecap':'round'},p);
+  el('rect',{x:600,y:240,width:70,height:30,fill:'#FFB21F',stroke:'#642606','stroke-width':3,transform:'rotate(-12 635 255)'},p);
+ }
+ if(i===5){el('circle',{cx:500,cy:290,r:30,fill:'#FFB21F',stroke:'#642606','stroke-width':4},p);var t=el('text',{x:500,y:300,'text-anchor':'middle','font-family':'Chewy,sans-serif','font-size':28,fill:'#642606'},p);t.textContent='★'}
+}
+
+function person(p,x,y,c){var q=g(p,'translate('+x+' '+y+')');el('circle',{cx:0,cy:0,r:9,fill:c,stroke:'#642606','stroke-width':2.5},q);el('circle',{cx:0,cy:-1,r:4.5,fill:'#E9B98E'},q)}
+function tent(p,x,y,c){var q=g(p,'translate('+x+' '+y+')');el('rect',{x:-48,y:-30,width:96,height:60,rx:5,fill:c,stroke:'#642606','stroke-width':3},q);el('line',{x1:-48,y1:0,x2:48,y2:0,stroke:'#642606','stroke-width':2,opacity:.5},q);el('line',{x1:0,y1:-30,x2:0,y2:30,stroke:'#642606','stroke-width':2,opacity:.5},q)}
+function label(p,x,y,t,sz){var e=el('text',{x:x,y:y,'text-anchor':'middle','font-family':'Fredoka,sans-serif','font-weight':600,'font-size':sz||15,fill:'#642606'},p);e.textContent=t;return e}
+
+function draw(){
+ S.innerHTML='';
+ el('rect',{x:0,y:0,width:1000,height:620,fill:'#EBD9A8'},S);
+ // ondas del afiche como suelo
+ el('path',{d:'M0 560 C150 520 260 600 420 570 C600 535 760 610 1000 560 L1000 620 L0 620Z',fill:'#F3B35C',opacity:.55},S);
+ el('rect',{x:22,y:22,width:956,height:552,rx:20,fill:'none',stroke:'#642606','stroke-width':3,'stroke-dasharray':'10 8'},S);
+ label(S,500,607,'Vista desde arriba · '+FECHAS[cur].d+', '+FECHAS[cur].c,15);
+ var gC=g(S);court(gC,cur);
+ // hinchada en las bandas
+ var cols=['#FF761B','#FFB21F','#089A9A','#FF761B'];
+ for(var i=0;i<12;i++)person(S,270+i*40,468,cols[i%4]);
+ for(var j=0;j<9;j++)person(S,300+j*50,108,cols[(j+1)%4]);
+ // jugadores
+ if(cur===0||cur===5){[[330,230,'#FF761B'],[380,330,'#FF761B'],[430,270,'#FF761B'],[570,250,'#089A9A'],[620,330,'#089A9A'],[670,280,'#089A9A']].forEach(function(a){person(S,a[0],a[1],a[2])})}
+ else if(cur===1){[[330,260,'#FF761B'],[420,330,'#FF761B'],[580,240,'#089A9A'],[660,320,'#089A9A']].forEach(function(a){person(S,a[0],a[1],a[2])})}
+ else if(cur===2){[[380,230,'#FF761B'],[380,340,'#FF761B'],[620,230,'#089A9A'],[620,340,'#089A9A']].forEach(function(a){person(S,a[0],a[1],a[2])})}
+ else if(cur===3){[[350,230,'#FF761B'],[350,350,'#FF761B'],[650,230,'#089A9A'],[650,350,'#089A9A']].forEach(function(a){person(S,a[0],a[1],a[2])})}
+ else{[[360,230,'#FF761B'],[440,350,'#089A9A'],[620,300,'#FF761B'],[560,205,'#089A9A']].forEach(function(a){person(S,a[0],a[1],a[2])})}
+ // 1 arco de entrada
+ var a1=g(S,'translate(95 255)');
+ el('rect',{x:0,y:0,width:14,height:90,rx:4,fill:'#FF761B',stroke:'#642606','stroke-width':3},a1);el('rect',{x:92,y:0,width:14,height:90,rx:4,fill:'#FF761B',stroke:'#642606','stroke-width':3},a1);
+ el('rect',{x:-6,y:-12,width:118,height:30,rx:8,fill:'#089A9A',stroke:'#642606','stroke-width':3},a1);
+ label(a1,53,9,'EN LA JUEGA',14).setAttribute('fill','#fff');
+ person(S,150,340,'#642606');label(S,150,372,'Árbitro',12);
+ // 2 papayómetro
+ var a2=g(S,'translate(110 430)');
+ el('rect',{x:0,y:0,width:80,height:50,rx:6,fill:'#1b0c05',stroke:'#642606','stroke-width':3},a2);el('rect',{x:8,y:8,width:64,height:30,rx:3,fill:'#FFB21F'},a2);
+ el('rect',{x:32,y:50,width:16,height:18,fill:'#642606'},a2);label(a2,40,34,'¿Papaya?',11);
+ // 3 puesto NUDE + Solancho
+ var a3=g(S,'translate(452 466)');
+ el('rect',{x:0,y:14,width:96,height:36,rx:6,fill:'#fff',stroke:'#642606','stroke-width':3},a3);
+ [14,32,50,68].forEach(function(x){el('rect',{x:x+4,y:0,width:10,height:22,rx:3,fill:'#089A9A',stroke:'#642606','stroke-width':2},a3)});
+ label(a3,48,62,'NUDE',12);
+ var im=el('image',{x:462,y:238,width:76,height:82,href:'../assets/solancho.png'},S);
+ // 4 árbitro en la línea
+ person(S,500,150,'#642606');el('rect',{x:507,y:138,width:10,height:14,fill:'#FF761B',stroke:'#642606','stroke-width':2},S);
+ // 5 marcador
+ var a5=g(S,'translate(785 60)');
+ el('rect',{x:0,y:0,width:140,height:64,rx:8,fill:'#1b0c05',stroke:'#642606','stroke-width':3},a5);
+ var tx=el('text',{x:70,y:42,'text-anchor':'middle','font-family':'Chewy,sans-serif','font-size':30,fill:'#FFB21F'},a5);tx.textContent='7 · 5';
+ // 6 carpas
+ tent(S,820,350,'#FF761B');tent(S,820,420,'#089A9A');tent(S,820,490,'#FFB21F');
+ el('rect',{x:884,y:330,width:60,height:150,rx:6,fill:'#FFF2C4',stroke:'#642606','stroke-width':3},S);
+ el('image',{x:890,y:360,width:48,height:52,href:'../assets/solancho.png'},S);
+ label(S,914,444,'QR',13);
+ el('rect',{x:896,y:450,width:36,height:20,fill:'#642606'},S);
+ // pines
+ EST.forEach(function(s){
+  var pg=el('g',{class:'pin'+(s.id===sel?' on':''),tabindex:0,role:'button','aria-label':'Estación '+s.id+': '+s.t,transform:'translate('+s.x+' '+s.y+')'},S);
+  el('circle',{class:'halo',r:26},pg);el('circle',{r:19},pg);var t=el('text',{y:8},pg);t.textContent=s.id;
+  pg.addEventListener('click',function(){pick(s.id)});
+  pg.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(s.id)}});
+ });
+}
+
+function dates(){
+ var d=document.getElementById('dates');d.innerHTML='';
+ FECHAS.forEach(function(f,i){var b=document.createElement('button');b.type='button';b.textContent=f.n;b.setAttribute('aria-pressed',i===cur);b.onclick=function(){cur=i;dates();draw();note();card()};d.appendChild(b)});
+}
+function note(){var f=FECHAS[cur];document.getElementById('dnote').innerHTML=f.n+': <b>'+f.d+'</b>, '+f.c+'. <span>Ritual propio:</span> '+f.r}
+function list(){
+ var l=document.getElementById('stl');l.innerHTML='';
+ EST.forEach(function(s){var b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',s.id===sel);b.innerHTML='<i>'+s.id+'</i>'+s.t;b.onclick=function(){pick(s.id)};l.appendChild(b)});
+}
+function vis(s){
+ if(s.v==='chk')return '<div class="vis chk3"><span>Llaves</span><span>Celular</span><span>Bloqueador</span></div>';
+ if(s.v==='card')return '<div class="vis vrow"><div class="tc">TARJETA<br>PAPAYA</div><p style="margin:0;font-weight:700">Para jugar, no para regañar.</p></div>';
+ if(s.v==='board')return '<div class="vis board"><div class="r"><span>Parche Naranja<small>bloqueador al entrar · reaplicación · papayómetro</small></span><b>7</b></div><div class="r"><span>Parche Teal<small>bloqueador al entrar · reaplicación · papayómetro</small></span><b>5</b></div></div>';
+ return '';
+}
+function card(){
+ var s=EST.filter(function(e){return e.id===sel})[0];
+ document.getElementById('card').innerHTML='<p class="tag">Estación '+s.id+' · '+s.tag+'</p><h3>'+s.t+'</h3><p>'+s.p+'</p><p class="say">'+s.s+'</p>'+vis(s);
+}
+function pick(id){sel=id;draw();list();card()}
+dates();note();draw();list();card();
+})();
+</script>
+</body>
+</html>
